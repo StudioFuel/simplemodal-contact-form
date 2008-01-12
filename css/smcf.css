@@ -29,5 +29,5 @@
 #contactModalContainer a.modalCloseX,
 #contactModalContainer a.modalCloseX:link,
 #contactModalContainer a.modalCloseX:active,
-#contactModalContainer a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; left:400px; color:#999;}
+#contactModalContainer a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; right:8px; color:#999;}
 #contactModalContainer a.modalCloseX:hover {color:#9bb3b3;}
