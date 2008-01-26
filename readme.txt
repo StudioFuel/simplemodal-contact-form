@@ -25,8 +25,8 @@ Currently, you'd have to edit the plugin file (smcf.php) to change the output of
 Examples:
 
 	a) <a href="/contact" class="smcf_link">Contact</a>
-	b) <?php if () : ?>
-	     <?php smcf() ?>
+	b) <?php if (function_exists('smcf')) : ?>
+	     <?php smcf(); ?>
 	   <?php endif; ?>
 
 == Frequently Asked Questions ==
