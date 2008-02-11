@@ -32,7 +32,8 @@ function smcf() {
 	echo "<a href='#' class='smcf_link'>Contact</a>";
 }
 
-define ("SMCF_DIR", "/wp-content/plugins/smcf");
+$dir = preg_replace('/^.*[\/\\\]/', '', dirname(__FILE__));
+define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
 class SimpleModalContactForm {
 

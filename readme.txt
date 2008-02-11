@@ -3,7 +3,7 @@ Contributors: emartin24
 Tags: contact, modal, ajax, jquery, javascript
 Requires at least: ?
 Tested up to: 2.3
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal dialog contact form. It is built on jQuery and uses the SimpleModal jQuery plugin.
 
@@ -17,7 +17,7 @@ Currently, you'd have to edit the plugin file (smcf.php) to change the output of
 
 == Installation ==
 
-1. Unzip SMCF archive and put all files/folders into your "plugins" folder (/wp-content/plugins/). You should end up with /wp-content/plugins/smcf/.
+1. Unzip SMCF archive and put all files/folders into your "plugins" folder (/wp-content/plugins/). You should end up with /wp-content/plugins/simplemodal-contact-form-smcf/.
 2. Activate the plugin
 3. Go to Options > SimpleModal Contact Form, adjust the options according to your needs, and save them.
 4. In your theme, a) add a CSS class to an existing Contact link or b) add the smcf function call to dynamically create a "Contact" link. See examples below.
@@ -44,9 +44,9 @@ Same as above, but look for "function footer()" instead.
 
 = How do I change the styling of the contact form? =
 
-Open smcf/css/smcf.css and modify the CSS to fit your needs. Put IE specific values in smcf/css/smcf-ie.css.
+Open simplemodal-contact-form-smcf/css/smcf.css and modify the CSS to fit your needs. Put IE specific values in simplemodal-contact-form-smcf/css/smcf-ie.css.
 
-There are a couple of CSS values that are set in the JavaScript (smcf/js/smcf_javascript.php).
+There are a couple of CSS values that are set in the JavaScript (simplemodal-contact-form-smcf/js/smcf_javascript.php).
 
 == Screenshots ==
 
@@ -56,3 +56,5 @@ There are a couple of CSS values that are set in the JavaScript (smcf/js/smcf_ja
 
 * Version 1.0
 	* Initial release
+* Version 1.0.1
+	* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
