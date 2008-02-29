@@ -20,7 +20,8 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		// preload images
 		var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
 		jQuery(img).each(function () {
-			jQuery('<img>').attr('src', smcf_url + '/img/' + this);
+			var i = new Image();
+			i.src = smcf_url + '/img/' + this;
 		});
 	});
 
