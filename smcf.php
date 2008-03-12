@@ -122,10 +122,6 @@ class SimpleModalContactForm {
 			if (get_option('smcf_jquery_js') == 1) {
 				wp_enqueue_script('smcf_jquery', get_option('siteurl') . SMCF_DIR . '/js/jquery.js', null, null);
 			}
-			if (get_option('smcf_simplemodal_js') == 1) {
-				wp_enqueue_script('smcf_simplemodal', get_option('siteurl') . SMCF_DIR . '/js/jquery.simplemodal.js', null, null);
-			}
-			wp_enqueue_script('smcf', get_option('siteurl') . SMCF_DIR . '/js/smcf_javascript.php', null, null);
 			wp_print_scripts();
 		}
 
@@ -137,6 +133,15 @@ class SimpleModalContactForm {
 	}
 
 	function footer() {
+      // add javascript files
+		if (function_exists('wp_enqueue_script')) {
+			if (get_option('smcf_simplemodal_js') == 1) {
+				wp_enqueue_script('smcf_simplemodal', get_option('siteurl') . SMCF_DIR . '/js/jquery.simplemodal.js', null, null);
+			}
+			wp_enqueue_script('smcf', get_option('siteurl') . SMCF_DIR . '/js/smcf_javascript.php', null, null);
+			wp_print_scripts();
+		}
+
 		// Send back the contact form HTML
 		echo "<div id='smcf_content' style='display:none'>
 	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
@@ -147,15 +152,15 @@ class SimpleModalContactForm {
 		<div class='message' style='display:none'></div>
 		<form action='#'>
 			<label for='name'>Name:</label>
-			<input type='text' id='name' name='name' tabindex='1001' />
+			<input type='text' id='name' class='input' name='name' tabindex='1001' />
 			<label for='email'>Email:</label>
-			<input type='text' id='email' name='email' tabindex='1002' />
+			<input type='text' id='email' class='input' name='email' tabindex='1002' />
 			<label for='message'>Message:</label>
-			<textarea id='message' name='message' cols='40' rows='4' tabindex='1003'></textarea>
+			<textarea id='message' class='input' name='message' cols='40' rows='4' tabindex='1003'></textarea>
 			<br/>
 			<label>&nbsp;</label>
-			<button type='submit' class='send' tabindex='1004'></button>
-			<button type='submit' class='cancel modalClose' tabindex='1005'></button>
+			<button type='submit' class='button send' tabindex='1004'></button>
+			<button type='submit' class='button cancel modalClose' tabindex='1005'></button>
 			<br/>
 		</form>
 	</div>

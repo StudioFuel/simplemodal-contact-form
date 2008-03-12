@@ -35,13 +35,13 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 					});
 					// resize the textarea for safari
 					if (jQuery.browser.safari) {
-						jQuery('#contactModalContainer #name, #contactModalContainer #email, #contactModalContainer #message').css({
+						jQuery('#contactModalContainer .input').css({
 							'font-size': '.9em'
 						});
 					}
 					// fix png's for IE 6
 					if (jQuery.browser.msie && jQuery.browser.version < 7) {
-						jQuery('#contactModalContainer .send, #contactModalContainer .cancel').each(function () {
+						jQuery('#contactModalContainer .button').each(function () {
 							if (jQuery(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
 								var src = RegExp.$1;
 								jQuery(this).css({
@@ -85,10 +85,11 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 				}
 				else {
 					if (jQuery('#contactModalContainer .message:visible').length > 0) {
-						jQuery('#contactModalContainer .message div').fadeOut(200, function () {
-							jQuery('#contactModalContainer .message div').empty();
+                  var msg = jQuery('#contactModalContainer .message div');
+						msg.fadeOut(200, function () {
+							msg.empty();
 							contact.showError();
-							jQuery('#contactModalContainer .message div').fadeIn(200);
+							msg.fadeIn(200);
 						});
 					}
 					else {
