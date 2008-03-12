@@ -5,35 +5,41 @@ require_once('../../../wp-config.php');
 $dir = preg_replace('/^.*[\/\\\]/', '', dirname(__FILE__));
 define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
-// Process
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
-if (empty($action)) {
-	// do nothing
-}
-else if ($action == 'send') {
-	// Send the email
-	$name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-	$email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
-	$message = isset($_REQUEST['message']) ? $_REQUEST['message'] : '';
+// process
+$action = isset($_POST['action']) ? $_POST['action'] : '';
+if ($action == 'send') {
+	// send the email
+	$name = isset($_POST['name']) ? $_POST['name'] : '';
+	$email = isset($_POST['email']) ? $_POST['email'] : '';
+	$subject = isset($_POST['subject']) ? $_POST['subject'] : '';
+	$cc = isset($_POST['cc']) ? $_POST['cc'] : '';
+	$token = isset($_POST['token']) ? $_POST['token'] : '';
 
-	sendEmail($name, $email, $message);
-	echo "Message successfully sent.";
+	// make sure the token matches
+	if ($token == SimpleModalContactForm::token()) {
+		sendEmail($name, $email, $subject, $message, $cc);
+		_e('Your message was successfully sent.');
+	}
+	else {
+		_e('Unfortunately, your message could not be delivered.');
+	}
 }
 
-// Validate and send email
-function sendEmail($name, $email, $message) {
+// validate and send email
+function sendEmail($name, $email, $subject, $message, $cc) {
 	$to = get_option('smcf_to_email');
-	$subject = get_option('smcf_subject');
 
-	// Filter name
+	// filter name and subject
 	$name = filter($name);
+	$subject = empty($subject) ? get_option('smcf_subject') : filter($subject);
 
-	// Filter and validate email
+	// filter and validate email
 	$email = filter($email);
 	if (!validateEmail($email)) {
 		$subject .= " - invalid email";
 		$message .= "\n\nBad email: $email";
 		$email = $to;
+		$cc = 0; // do not CC "sender"
 	}
 
 	// Add additional info to the message
@@ -50,12 +56,15 @@ function sendEmail($name, $email, $message) {
 	$body = wordwrap($body, 70);
 
 	// Build header
-	$header = "From: $email\n";
-	$header .= "X-Mailer: PHP/SimpleModalContactForm";
+	$headers = "From: $email\n";
+	if ($cc == 1) {
+		$headers .= "Cc: $email\n";
+	}
+	$headers .= "X-Mailer: PHP/SimpleModalContactForm";
 
 	// Send email - suppress errors
-	@mail($to, $subject, $body, $header) or 
-		die('Unfortunately, your message could not be delivered.');
+	@mail($to, $subject, $body, $headers) or 
+		die(__('Unfortunately, your message could not be delivered.'));
 }
 
 // Remove any un-safe values to prevent email injection

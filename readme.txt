@@ -24,7 +24,7 @@ Currently, you'd have to edit the plugin file (smcf.php) to change the output of
 
 Examples:
 
-	a) <a href="/contact" class="smcf_link">Contact</a>
+	a) <a href="/contact" class="smcf-link">Contact</a>
 	b) <?php if (function_exists('smcf')) : ?>
 	     <?php smcf(); ?>
 	   <?php endif; ?>
@@ -44,7 +44,7 @@ Same as above, but look for "function footer()" instead.
 
 = How do I change the styling of the contact form? =
 
-Open simplemodal-contact-form-smcf/css/smcf.css and modify the CSS to fit your needs. Put IE specific values in simplemodal-contact-form-smcf/css/smcf-ie.css.
+Open simplemodal-contact-form-smcf/css/smcf.css and modify the CSS to fit your needs. Put IE6 specific values in simplemodal-contact-form-smcf/css/smcf-ie.css.
 
 There are a couple of CSS values that are set in the JavaScript (simplemodal-contact-form-smcf/js/smcf_javascript.php).
 

@@ -1,0 +1,2 @@
+- Try minifying the smcf_javascript.php file
+- Add a function to create a non-js version of the contact form

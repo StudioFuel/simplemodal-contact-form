@@ -29,7 +29,7 @@ Author URI: http://www.ericmmartin.com
 // Public function to create a link for the contact form
 // This can be called from any file in your theme
 function smcf() {
-	echo "<a href='#' class='smcf_link'>Contact</a>";
+	echo "<a href='/contact' class='smcf-link'>Contact</a>";
 }
 
 $dir = preg_replace('/^.*[\/\\\]/', '', dirname(__FILE__));
@@ -53,6 +53,8 @@ class SimpleModalContactForm {
 			$message = _e('Options saved.');
 			update_option('smcf_jquery_js', $_POST['smcf_jquery_js']);
 			update_option('smcf_simplemodal_js', $_POST['smcf_simplemodal_js']);
+			update_option('smcf_form_subject', $_POST['smcf_form_subject']);
+			update_option('smcf_form_cc_sender', $_POST['smcf_form_cc_sender']);
 			update_option('smcf_to_email', $_POST['smcf_to_email']);
 			update_option('smcf_subject', $_POST['smcf_subject']);
 			update_option('smcf_ip', $_POST['smcf_ip']);
@@ -63,6 +65,9 @@ class SimpleModalContactForm {
 		$smcf_to_email = get_option('smcf_to_email');
 		// if a contact form to: email has not been set, use the admin_email
 		$email = !empty($smcf_to_email) ? $smcf_to_email : $admin_email;
+
+		$smcf_form_title = get_option('smcf_form_title');
+		$title = !empty($smcf_form_title) ? $smcf_form_title : __('Send me a message');
 ?>
 <?php if (!empty($message)) : ?>
 <div id='message' class='updated fade'><p><strong><?php echo $message ?></strong></p></div>
@@ -82,10 +87,26 @@ class SimpleModalContactForm {
 			<label for="smcf_jquery_js">
 			<input name="smcf_jquery_js" type="checkbox" id="smcf_jquery_js" value="1" <?php checked('1', get_option('smcf_jquery_js')); ?> />
 			<?php _e('Include jQuery') ?></label>
-			<p><?php _e('Select the option above if you do not already have the jQueryJavaScript file included in your site. This plugin requires jQuery 1.2 or greater.'); ?></p>
+			<p><?php _e('Select the option above if you do not already have the jQuery JavaScript file included in your site. This plugin requires jQuery 1.2 or greater.'); ?></p>
 			<label for="smcf_simplemodal_js"><input name="smcf_simplemodal_js" type="checkbox" id="smcf_simplemodal_js" value="1" <?php checked('1', get_option('smcf_simplemodal_js')); ?> /> <?php _e('Include SimpleModal') ?></label>
 			<p><?php _e('Select the option above if you do not already have the SimpleModal JavaScript file included in your site.'); ?></p>
 		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Form Elements:'); ?></th>
+		<td>
+			<label for="smcf_form_subject">
+			<input name="smcf_form_subject" type="checkbox" id="smcf_form_subject" value="1" <?php checked('1', get_option('smcf_form_subject')); ?> />
+			<?php _e('Include Subject Field') ?></label>
+			<p><?php _e('Select the option above if you would like the contact form to include a subject field. The field will not be required and if not entered, will use the Default Subject value from below.'); ?></p>
+			<label for="smcf_form_cc_sender"><input name="smcf_form_cc_sender" type="checkbox" id="smcf_form_cc_sender" value="1" <?php checked('1', get_option('smcf_form_cc_sender')); ?> /> <?php _e('Include "Send me a copy" Option') ?></label>
+			<p><?php _e('Select the option above if you would like the contact form to include a "Send me a copy" option for the sender.'); ?></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Title:'); ?></th>
+		<td><input type='text' id='smcf_form_title' name='smcf_form_title' value='<?php echo $title; ?>' size='40' class='code'/>
+		<p><?php _e('Enter the title that you want displayed on your contact form.'); ?></p></td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php _e('To:'); ?></th>
@@ -95,7 +116,7 @@ class SimpleModalContactForm {
 	<tr valign="top">
 		<th scope="row"><?php _e('Subject:'); ?></th>
 		<td><input type='text' id='smcf_subject' name='smcf_subject' value='<?php echo get_option('smcf_subject'); ?>' size='40' class='code'/>
-		<p><?php _e('Enter the subject that you want all contact emails to be sent with.'); ?></p></td>
+		<p><?php _e('Enter the default subject that you want all contact emails to be sent with. This value will be used if you do not enable the subject field or if you do enable the subject field, but the user does not enter a subject.'); ?></p></td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php _e('Extra:') ?></th>
@@ -104,12 +125,15 @@ class SimpleModalContactForm {
 			<input name="smcf_ip" type="checkbox" id="smcf_ip" value="1" <?php checked('1', get_option('smcf_ip')); ?> />
 			<?php _e('Include the users IP Address') ?></label><br />
 			<label for="smcf_ua"><input name="smcf_ua" type="checkbox" id="smcf_ua" value="1" <?php checked('1', get_option('smcf_ua')); ?> /> <?php _e('Include the users User Agent') ?>
-			<p><?php _e('Select the options above to included extra user information in the contact email.'); ?></p></label>
+			<p><?php _e('Select the options above to included extra user information in the contact email.<br/><b>Note:</b> These values will be sent to the sender if "Send me a copy" is enabled and checked.'); ?></p></label>
 		</td>
 	</tr>
 </table>
+<p class='submit'>
+	<input type='submit' name='Submit' value='<?php _e('Update Options &raquo;') ?>' />
+</p>
 <input type='hidden' name='action' value='update' />
-<input type='hidden' name='page_options' value='smcf_jquery_js,smcf_simplemodal_js,smcf_to_email,smcf_subject,smcf_ip,smcf_ua' />
+<input type='hidden' name='page_options' value='smcf_jquery_js,smcf_simplemodal_js,smcf_form_title,smcf_form_subject,smcf_form_cc_sender,smcf_to_email,smcf_subject,smcf_ip,smcf_ua' />
 </form>
 
 </div>
@@ -142,32 +166,57 @@ class SimpleModalContactForm {
 			wp_print_scripts();
 		}
 
+		$title = get_option('smcf_form_title');
+		$title = empty($title) ? __('Send me a message') : $title;
+
 		// Send back the contact form HTML
-		echo "<div id='smcf_content' style='display:none'>
+		$form = "<div id='smcf-content' style='display:none'>
 	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
-	<div class='top'></div>
-	<div class='content'>
-		<h1 class='title'>Send a message:</h1>
-		<div class='loading' style='display:none'></div>
-		<div class='message' style='display:none'></div>
-		<form action='#'>
-			<label for='name'>Name:</label>
-			<input type='text' id='name' class='input' name='name' tabindex='1001' />
-			<label for='email'>Email:</label>
-			<input type='text' id='email' class='input' name='email' tabindex='1002' />
-			<label for='message'>Message:</label>
-			<textarea id='message' class='input' name='message' cols='40' rows='4' tabindex='1003'></textarea>
-			<br/>
+	<div class='smcf-top'></div>
+	<div class='smcf-content'>
+		<h1 class='smcf-title'>" . $title . "</h1>
+		<div class='smcf-loading' style='display:none'></div>
+		<div class='smcf-message' style='display:none'></div>
+		<form action='#' style='display:none'>
+			<label for='smcf-name'>*" . __('Name') . ":</label>
+			<input type='text' id='smcf-name' class='smcf-input' name='name' value='' tabindex='1001' />
+			<label for='smcf-email'>*" . __('Email') . ":</label>
+			<input type='text' id='smcf-email' class='smcf-input' name='email' value='' tabindex='1002' />";
+
+		if (get_option('smcf_form_subject') == 1) {
+			$form .= "<label for='smcf-subject'>" . __('Subject') . ":</label>
+			<input type='text' id='smcf-subject' class='smcf-input' name='subject' value='' tabindex='1003' />";
+		}
+
+		$form .= "<label for='smcf-message'>*" . __('Message') . ":</label>
+			<textarea id='smcf-message' class='smcf-input' name='message' cols='40' rows='4' tabindex='1004'></textarea>";
+
+		if (get_option('smcf_form_cc_sender') == 1) {
+			$form .= "<br/>
 			<label>&nbsp;</label>
-			<button type='submit' class='button send' tabindex='1004'></button>
-			<button type='submit' class='button cancel modalClose' tabindex='1005'></button>
+			<input type='checkbox' id='smcf-cc' name='cc' value='1' tabindex='1005' /> <span>" . __('Send me a copy') . "</span>
+			<br/>";
+		}
+		else {
+			$form .= "<br/>";
+		}
+
+		$form .= "<label>&nbsp;</label>
+			<button type='submit' class='smcf-button smcf-send' tabindex='1006'>" . __('Send') . "</button>
+			<button type='submit' class='smcf-button smcf-cancel modalClose' tabindex='1007'>" . __('Cancel') . "</button>
+			<input type='hidden' name='token' value='" . $this->token() . "'/>
 			<br/>
 		</form>
 	</div>
-	<div class='bottom'><a href='http://www.ericmmartin.com/projects/smcf/'>Powered by SimpleModal Contact Form</a></div>
+	<div class='smcf-bottom'><a href='http://www.ericmmartin.com/projects/smcf/'>" . __('Powered by') . " SimpleModal Contact Form</a></div>
 </div>";
+
+		echo $form;
 	}
 
+	function token() {
+		return md5('smcf-' . $_SERVER['REMOTE_ADDR'] . date("l"));
+	}
 }
 
 $smcf = new SimpleModalContactForm();
