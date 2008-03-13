@@ -25,12 +25,12 @@ SMCF requires PHP mail() to be installed and working.
 4. Enable SMCF on your site! SMCF works by looking for links (HTML A elements) with a class of "smcf-link". You have two options:
 
    * Add the "smcf-link" to your existing contact link: 
-      `<a href="/contact" class="smcf-link">Contact</a>`
+      <a href="/contact" class="smcf-link">Contact</a>
 
    * Use the "smcf()" function in one of your theme files (sidebar.php, for example):
-      `<?php if (function_exists('smcf')) : ?>`
-        `<?php smcf(); ?>`
-      `<?php endif; ?>`
+      <?php if (function_exists('smcf')) : ?>
+        <?php smcf(); ?>
+      <?php endif; ?>
 
 == Frequently Asked Questions ==
 
@@ -56,7 +56,7 @@ Open simplemodal-contact-form-smcf/css/smcf.css and modify the CSS to fit your n
 Here are some troubleshooting steps to follow:
 
 * Use Firefox and Firebug or if you must use IE, turn on JavaScript debugging and install the Developer Toolbar (search Google if you are unsure of how to do any of these)
-* Make sure the `footer.php` file in your theme, contains `<?php wp_footer(); ?>`
+* Make sure the footer.php file in your theme, contains <?php wp_footer(); ?>
 * Make sure all of the JavaScript files are loaded
 * Make sure no other plugins are loading older version of jQuery (SMCF requires jQuery 1.2 or greater)
 * Make sure PHP's mail() is installed and working. (You can also open smcf_data.php and remove the @ from @mail. That will echo out any errors that it throws while trying to send mail.)
