@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" and select "SimpleModal Contact Form".
-Version: 1.0.1
+Version: 1.1
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
