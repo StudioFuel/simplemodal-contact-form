@@ -12,6 +12,7 @@ if ($action == 'send') {
 	$name = isset($_POST['name']) ? $_POST['name'] : '';
 	$email = isset($_POST['email']) ? $_POST['email'] : '';
 	$subject = isset($_POST['subject']) ? $_POST['subject'] : '';
+	$message = isset($_POST['message']) ? $_POST['message'] : '';
 	$cc = isset($_POST['cc']) ? $_POST['cc'] : '';
 	$token = isset($_POST['token']) ? $_POST['token'] : '';
 

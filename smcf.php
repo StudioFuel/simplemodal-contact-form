@@ -26,12 +26,6 @@ Author URI: http://www.ericmmartin.com
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Public function to create a link for the contact form
-// This can be called from any file in your theme
-function smcf() {
-	echo "<a href='/contact' class='smcf-link'>Contact</a>";
-}
-
 $dir = preg_replace('/^.*[\/\\\]/', '', dirname(__FILE__));
 define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
@@ -52,7 +46,9 @@ class SimpleModalContactForm {
 			// save options
 			$message = _e('Options saved.');
 			update_option('smcf_jquery_js', $_POST['smcf_jquery_js']);
-			update_option('smcf_simplemodal_js', $_POST['smcf_simplemodal_js']);
+			update_option('smcf_simplemodal_js', $_POST['smcf_simplemodal_js']); 
+			update_option('smcf_link_url', $_POST['smcf_link_url']); 
+			update_option('smcf_link_title', $_POST['smcf_link_title']);
 			update_option('smcf_form_subject', $_POST['smcf_form_subject']);
 			update_option('smcf_form_cc_sender', $_POST['smcf_form_cc_sender']);
 			update_option('smcf_to_email', $_POST['smcf_to_email']);
@@ -64,10 +60,20 @@ class SimpleModalContactForm {
 		$admin_email = get_option('admin_email');
 		$smcf_to_email = get_option('smcf_to_email');
 		// if a contact form to: email has not been set, use the admin_email
-		$email = !empty($smcf_to_email) ? $smcf_to_email : $admin_email;
+		$email = empty($smcf_to_email) ? $admin_email : $smcf_to_email;
 
 		$smcf_form_title = get_option('smcf_form_title');
-		$title = !empty($smcf_form_title) ? $smcf_form_title : __('Send me a message');
+		$smcf_form_title = empty($smcf_form_title) ? __('Send me a message') : $smcf_form_title;
+
+		$smcf_link_url = get_option('smcf_link_url');
+		$smcf_link_url = empty($smcf_link_url) ? '/contact' : $smcf_link_url;
+
+		$smcf_link_title = get_option('smcf_link_title');
+		$smcf_link_title = empty($smcf_link_title) ? 'Contact' : $smcf_link_title;
+
+		$smcf_subject = get_option('smcf_subject');
+		$smcf_subject = empty($smcf_subject) ? 'SimpleModal Contact Form' : $smcf_subject;
+
 ?>
 <?php if (!empty($message)) : ?>
 <div id='message' class='updated fade'><p><strong><?php echo $message ?></strong></p></div>
@@ -93,6 +99,31 @@ class SimpleModalContactForm {
 		</td>
 	</tr>
 	<tr valign="top">
+		<th scope="row"><?php _e('Contact Link URL:'); ?></th>
+		<td><input type='text' id='smcf_link_url' name='smcf_link_url' value='<?php echo $smcf_link_url; ?>' size='40' class='code'/>
+		<p><?php _e('The URL for the contact link to your contact form page. This is the URL that non-JavaScript users will be taken to.'); ?></p></td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Contact Link Title:'); ?></th>
+		<td><input type='text' id='smcf_link_title' name='smcf_link_title' value='<?php echo $smcf_link_title; ?>' size='40' class='code'/>
+		<p><?php _e('The title for the contact link to your contact form page.'); ?></p></td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Form Title:'); ?></th>
+		<td><input type='text' id='smcf_form_title' name='smcf_form_title' value='<?php echo $smcf_form_title; ?>' size='40' class='code'/>
+		<p><?php _e('Enter the title that you want displayed on your contact form.'); ?></p></td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Form To:'); ?></th>
+		<td><input type='text' id='smcf_to_email' name='smcf_to_email' value='<?php echo $email; ?>' size='40' class='code'/>
+		<p><?php _e('Enter the email address that you want all contact emails to be sent to. The default is your WordPress administrator email.'); ?></p></td>
+	</tr>
+	<tr valign="top">
+		<th scope="row"><?php _e('Form Subject:'); ?></th>
+		<td><input type='text' id='smcf_subject' name='smcf_subject' value='<?php echo $smcf_subject; ?>' size='40' class='code'/>
+		<p><?php _e('Enter the default subject that you want all contact emails to be sent with. This value will be used if you do not enable the subject field or if you do enable the subject field, but the user does not enter a subject.'); ?></p></td>
+	</tr>
+	<tr valign="top">
 		<th scope="row"><?php _e('Form Elements:'); ?></th>
 		<td>
 			<label for="smcf_form_subject">
@@ -102,21 +133,6 @@ class SimpleModalContactForm {
 			<label for="smcf_form_cc_sender"><input name="smcf_form_cc_sender" type="checkbox" id="smcf_form_cc_sender" value="1" <?php checked('1', get_option('smcf_form_cc_sender')); ?> /> <?php _e('Include "Send me a copy" Option') ?></label>
 			<p><?php _e('Select the option above if you would like the contact form to include a "Send me a copy" option for the sender.'); ?></p>
 		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row"><?php _e('Title:'); ?></th>
-		<td><input type='text' id='smcf_form_title' name='smcf_form_title' value='<?php echo $title; ?>' size='40' class='code'/>
-		<p><?php _e('Enter the title that you want displayed on your contact form.'); ?></p></td>
-	</tr>
-	<tr valign="top">
-		<th scope="row"><?php _e('To:'); ?></th>
-		<td><input type='text' id='smcf_to_email' name='smcf_to_email' value='<?php echo $email; ?>' size='40' class='code'/>
-		<p><?php _e('Enter the email address that you want all contact emails to be sent to. The default is your WordPress administrator email.'); ?></p></td>
-	</tr>
-	<tr valign="top">
-		<th scope="row"><?php _e('Subject:'); ?></th>
-		<td><input type='text' id='smcf_subject' name='smcf_subject' value='<?php echo get_option('smcf_subject'); ?>' size='40' class='code'/>
-		<p><?php _e('Enter the default subject that you want all contact emails to be sent with. This value will be used if you do not enable the subject field or if you do enable the subject field, but the user does not enter a subject.'); ?></p></td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php _e('Extra:') ?></th>
@@ -133,7 +149,7 @@ class SimpleModalContactForm {
 	<input type='submit' name='Submit' value='<?php _e('Update Options &raquo;') ?>' />
 </p>
 <input type='hidden' name='action' value='update' />
-<input type='hidden' name='page_options' value='smcf_jquery_js,smcf_simplemodal_js,smcf_form_title,smcf_form_subject,smcf_form_cc_sender,smcf_to_email,smcf_subject,smcf_ip,smcf_ua' />
+<input type='hidden' name='page_options' value='smcf_jquery_js,smcf_simplemodal_js,smcf_link_url,smcf_link_title,smcf_form_title,smcf_form_subject,smcf_form_cc_sender,smcf_to_email,smcf_subject,smcf_ip,smcf_ua' />
 </form>
 
 </div>
@@ -157,7 +173,7 @@ class SimpleModalContactForm {
 	}
 
 	function footer() {
-      // add javascript files
+		// add javascript files
 		if (function_exists('wp_enqueue_script')) {
 			if (get_option('smcf_simplemodal_js') == 1) {
 				wp_enqueue_script('smcf_simplemodal', get_option('siteurl') . SMCF_DIR . '/js/jquery.simplemodal.js', null, null);
@@ -169,7 +185,7 @@ class SimpleModalContactForm {
 		$title = get_option('smcf_form_title');
 		$title = empty($title) ? __('Send me a message') : $title;
 
-		// Send back the contact form HTML
+		// create the contact form HTML
 		$form = "<div id='smcf-content' style='display:none'>
 	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
 	<div class='smcf-top'></div>
@@ -194,7 +210,7 @@ class SimpleModalContactForm {
 		if (get_option('smcf_form_cc_sender') == 1) {
 			$form .= "<br/>
 			<label>&nbsp;</label>
-			<input type='checkbox' id='smcf-cc' name='cc' value='1' tabindex='1005' /> <span>" . __('Send me a copy') . "</span>
+			<input type='checkbox' id='smcf-cc' name='cc' value='1' tabindex='1005' /> <span class='smcf-cc'>" . __('Send me a copy') . "</span>
 			<br/>";
 		}
 		else {
@@ -227,5 +243,19 @@ add_action('admin_menu', array($smcf, 'submenu'));
 // Include SimpleModal Contact Form code to a page
 add_action('wp_head', array($smcf, 'head'));
 add_action('wp_footer', array($smcf, 'footer'));
+
+/*
+ * Public function to create a link for the contact form
+ * This can be called from any file in your theme
+ */
+function smcf() {
+	$url = get_option('smcf_link_url');
+	$url = empty($url) ? '/contact' : $url;
+
+	$title = get_option('smcf_link_title');
+	$title = empty($title) ? 'Contact' : $title;
+
+	echo "<a href='$url' class='smcf-link'>$title</a>";
+}
 
 ?>

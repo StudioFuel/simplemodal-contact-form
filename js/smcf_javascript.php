@@ -10,8 +10,8 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			// display the contact form
 			jQuery('#smcf-content').modal({
 				close: false,
-				overlayId: 'contactModalOverlay',
-				containerId: 'contactModalContainer',
+				overlayId: 'smcf-overlay',
+				containerId: 'smcf-container',
 				onOpen: contact.open,
 				onShow: contact.show,
 				onClose: contact.close
@@ -40,26 +40,38 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 
 			// resize the textarea for safari
 			if (jQuery.browser.safari) {
-				jQuery('#contactModalContainer .smcf-input').css({
+				jQuery('#smcf-container .smcf-input').css({
 					'font-size': '.9em'
 				});
 			}
 
-			var title = jQuery('#contactModalContainer .smcf-title').html();
-			jQuery('#contactModalContainer .smcf-title').html('<?php _e('Loading...'); ?>');
+			// add padding to the buttons in firefox/mozilla
+			if (jQuery.browser.mozilla) {
+				jQuery('#smcf-container .smcf-button').css({
+					'padding-bottom': '2px'
+				});
+			}
+
+			var title = jQuery('#smcf-container .smcf-title').html();
+			jQuery('#smcf-container .smcf-title').html('<?php _e('Loading...'); ?>');
 			dialog.overlay.fadeIn(200, function () {
 				dialog.container.fadeIn(200, function () {
 					dialog.data.fadeIn(200, function () {
-						jQuery('#contactModalContainer .smcf-content').animate({
+						jQuery('#smcf-container .smcf-content').animate({
 							height: h
 						}, function () {
-							jQuery('#contactModalContainer .smcf-title').html(title);
-							jQuery('#contactModalContainer form').fadeIn(200, function () {
-								jQuery('#contactModalContainer #smcf-name').focus();
+							jQuery('#smcf-container .smcf-title').html(title);
+							jQuery('#smcf-container form').fadeIn(200, function () {
+								jQuery('#smcf-container #smcf-name').focus();
+
+								jQuery('#smcf-container .smcf-cc').click(function () {
+									var cc = jQuery('#smcf-container #smcf-cc');
+									cc.is(':checked') ? cc.attr('checked', '') : cc.attr('checked', 'checked');
+								});
 
 								// fix png's for IE 6
 								if (jQuery.browser.msie && jQuery.browser.version < 7) {
-									jQuery('#contactModalContainer .smcf-button').each(function () {
+									jQuery('#smcf-container .smcf-button').each(function () {
 										if (jQuery(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
 											var src = RegExp.$1;
 											jQuery(this).css({
@@ -76,29 +88,29 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			});
 		},
 		show: function (dialog) {
-			jQuery('#contactModalContainer .smcf-send').click(function (e) {
+			jQuery('#smcf-container .smcf-send').click(function (e) {
 				e.preventDefault();
 				// validate form
 				if (contact.validate()) {
-					jQuery('#contactModalContainer .smcf-message').fadeOut(function () {
-						jQuery('#contactModalContainer .smcf-message').removeClass('error').empty();
+					jQuery('#smcf-container .smcf-message').fadeOut(function () {
+						jQuery('#smcf-container .smcf-message').removeClass('error').empty();
 					});
-					jQuery('#contactModalContainer .smcf-title').html('Sending...');
-					jQuery('#contactModalContainer form').fadeOut(200);
-					jQuery('#contactModalContainer .smcf-content').animate({
+					jQuery('#smcf-container .smcf-title').html('Sending...');
+					jQuery('#smcf-container form').fadeOut(200);
+					jQuery('#smcf-container .smcf-content').animate({
 						height: '80px'
 					}, function () {
-						jQuery('#contactModalContainer .smcf-loading').fadeIn(200, function () {
+						jQuery('#smcf-container .smcf-loading').fadeIn(200, function () {
 							jQuery.ajax({
 								url: smcf_url + '/smcf_data.php',
-								data: jQuery('#contactModalContainer form').serialize() + '&action=send',
+								data: jQuery('#smcf-container form').serialize() + '&action=send',
 								type: 'post',
 								cache: false,
 								dataType: 'html',
 								complete: function (xhr) {
-									jQuery('#contactModalContainer .smcf-loading').fadeOut(200, function () {
-										jQuery('#contactModalContainer .smcf-title').html('<?php _e('Thank You!'); ?>');
-										jQuery('#contactModalContainer .smcf-message').html(xhr.responseText).fadeIn(200);
+									jQuery('#smcf-container .smcf-loading').fadeOut(200, function () {
+										jQuery('#smcf-container .smcf-title').html('<?php _e('Thank You!'); ?>');
+										jQuery('#smcf-container .smcf-message').html(xhr.responseText).fadeIn(200);
 									});
 								},
 								error: contact.error
@@ -107,8 +119,8 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 					});
 				}
 				else {
-					if (jQuery('#contactModalContainer .smcf-message:visible').length > 0) {
-					var msg = jQuery('#contactModalContainer .smcf-message div');
+					if (jQuery('#smcf-container .smcf-message:visible').length > 0) {
+					var msg = jQuery('#smcf-container .smcf-message div');
 						msg.fadeOut(200, function () {
 							msg.empty();
 							contact.showError();
@@ -116,7 +128,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 						});
 					}
 					else {
-						jQuery('#contactModalContainer .smcf-message').animate({
+						jQuery('#smcf-container .smcf-message').animate({
 							height: '30px'
 						}, contact.showError);
 					}
@@ -125,10 +137,10 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			});
 		},
 		close: function (dialog) {
-			jQuery('#contactModalContainer .smcf-message').fadeOut();
-			jQuery('#contactModalContainer .smcf-title').html('<?php _e('Goodbye...'); ?>');
-			jQuery('#contactModalContainer form').fadeOut(200);
-			jQuery('#contactModalContainer .smcf-content').animate({
+			jQuery('#smcf-container .smcf-message').fadeOut();
+			jQuery('#smcf-container .smcf-title').html('<?php _e('Goodbye...'); ?>');
+			jQuery('#smcf-container form').fadeOut(200);
+			jQuery('#smcf-container .smcf-content').animate({
 				height: '40px'
 			}, function () {
 				dialog.data.fadeOut(200, function () {
@@ -145,11 +157,11 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		},
 		validate: function () {
 			contact.message = '';
-			if (!jQuery('#contactModalContainer #smcf-name').val()) {
+			if (!jQuery('#smcf-container #smcf-name').val()) {
 				contact.message += '<?php _e('Name is required'); ?>. ';
 			}
 
-			var email = jQuery('#contactModalContainer #smcf-email').val();
+			var email = jQuery('#smcf-container #smcf-email').val();
 			if (!email) {
 				contact.message += '<?php _e('Email is required'); ?>. ';
 			}
@@ -159,7 +171,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 				}
 			}
 
-			if (!jQuery('#contactModalContainer #smcf-message').val()) {
+			if (!jQuery('#smcf-container #smcf-message').val()) {
 				contact.message += '<?php _e('Message is required'); ?>.';
 			}
 
@@ -210,7 +222,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			return true;
 		},
 		showError: function () {
-			jQuery('#contactModalContainer .smcf-message')
+			jQuery('#smcf-container .smcf-message')
 				.html(jQuery('<div/>').addClass('smcf-error').append(contact.message))
 				.fadeIn(200);
 		}
