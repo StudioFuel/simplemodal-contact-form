@@ -31,10 +31,12 @@ SMCF has options to include the jQuery and SimpleModal files as well as whether 
 
 You have 2 options:
 
-	a) Add the "smcf-link" to your existing contact link: 
+a) Add the "smcf-link" to your existing contact link:
+
 	<a href="/contact" class="smcf-link">Contact</a>
 	
-	b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for example):
+b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for example):
+
 	<?php if (function_exists('smcf')) : ?>
 		<?php smcf(); ?>
 	<?php endif; ?>
@@ -54,7 +56,7 @@ You can modify the link URL and link title on the SMCF WordPress options page.
 
 = How do I change the styling of the contact form? =
 
-Open simplemodal-contact-form-smcf/css/smcf.css and modify the CSS to fit your needs. Put IE6 specific values in `simplemodal-contact-form-smcf/css/smcf-ie.css`.
+Open `simplemodal-contact-form-smcf/css/smcf.css` and modify the CSS to fit your needs. Put IE6 specific values in `simplemodal-contact-form-smcf/css/smcf-ie.css`.
 
 *Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf_javascript.php`).
 
