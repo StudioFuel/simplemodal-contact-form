@@ -1,38 +1,38 @@
 <?php
 
-require_once('../../../wp-config.php');
+require_once("../../../wp-config.php");
 
-$dir = preg_replace('/^.*[\/\\\]/', '', dirname(__FILE__));
+$dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
 define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
 // process
-$action = isset($_POST['action']) ? $_POST['action'] : '';
-if ($action == 'send') {
+$action = isset($_POST["action"]) ? $_POST["action"] : "";
+if ($action == "send") {
 	// send the email
-	$name = isset($_POST['name']) ? $_POST['name'] : '';
-	$email = isset($_POST['email']) ? $_POST['email'] : '';
-	$subject = isset($_POST['subject']) ? $_POST['subject'] : '';
-	$message = isset($_POST['message']) ? $_POST['message'] : '';
-	$cc = isset($_POST['cc']) ? $_POST['cc'] : '';
-	$token = isset($_POST['token']) ? $_POST['token'] : '';
+	$name = isset($_POST["name"]) ? $_POST["name"] : "";
+	$email = isset($_POST["email"]) ? $_POST["email"] : "";
+	$subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
+	$message = isset($_POST["message"]) ? $_POST["message"] : "";
+	$cc = isset($_POST["cc"]) ? $_POST["cc"] : "";
+	$token = isset($_POST["token"]) ? $_POST["token"] : "";
 
 	// make sure the token matches
 	if ($token == SimpleModalContactForm::token()) {
 		sendEmail($name, $email, $subject, $message, $cc);
-		_e('Your message was successfully sent.');
+		_e("Your message was successfully sent.");
 	}
 	else {
-		_e('Unfortunately, your message could not be delivered.');
+		_e("Unfortunately, your message could not be delivered.");
 	}
 }
 
 // validate and send email
 function sendEmail($name, $email, $subject, $message, $cc) {
-	$to = get_option('smcf_to_email');
+	$to = get_option("smcf_to_email");
 
 	// filter name and subject
 	$name = filter($name);
-	$subject = empty($subject) ? get_option('smcf_subject') : filter($subject);
+	$subject = empty($subject) ? get_option("smcf_subject") : filter($subject);
 
 	// filter and validate email
 	$email = filter($email);
@@ -44,11 +44,11 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 	}
 
 	// Add additional info to the message
-	if (get_option('smcf_ip')) {
-		$message .= "\n\nIP: " . $_SERVER['REMOTE_ADDR'];
+	if (get_option("smcf_ip")) {
+		$message .= "\n\nIP: " . $_SERVER["REMOTE_ADDR"];
 	}
-	if (get_option('smcf_ua')) {
-		$message .= "\n\nUSER AGENT: " . $_SERVER['HTTP_USER_AGENT'];
+	if (get_option("smcf_ua")) {
+		$message .= "\n\nUSER AGENT: " . $_SERVER["HTTP_USER_AGENT"];
 	}
 
 	// Set and wordwrap message body
@@ -63,15 +63,23 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 	}
 	$headers .= "X-Mailer: PHP/SimpleModalContactForm";
 
+	// UTF-8
+	$subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
+	//$subject = "=?$charset?B?" . base64_encode($subject) . "?=\n";
+	$headers .= "MIME-Version: 1.0\n";
+	$headers .= "Content-type: text/plain; charset=utf-8\n";
+	$headers .= "Content-Transfer-Encoding: quoted-printable\n";
+	//$headers .= "Content-Transfer-Encoding: 8bit\n";
+
 	// Send email - suppress errors
 	@mail($to, $subject, $body, $headers) or 
-		die(__('Unfortunately, your message could not be delivered.'));
+		die(__("Unfortunately, your message could not be delivered."));
 }
 
 // Remove any un-safe values to prevent email injection
 function filter($value) {
-	$pattern = array("/\n/","/\r/","/content-type:/i","/to:/i", "/from:/i", "/cc:/i");
-	$value = preg_replace($pattern, '', $value);
+	$pattern = array("/\n/", "/\r/", "/content-type:/i", "/to:/i", "/from:/i", "/cc:/i");
+	$value = preg_replace($pattern, "", $value);
 	return $value;
 }
 
@@ -79,13 +87,13 @@ function filter($value) {
 function validateEmail($email) {
 	$at = strrpos($email, "@");
 
-	// Make sure the at (@) sybmol exists and  
+	// Make sure the at (@) sybmol exists and 
 	// it is not the first or last character
 	if ($at && ($at < 1 || ($at + 1) == strlen($email)))
 		return false;
 
 	// Make sure there aren't multiple periods together
-	if (preg_match('/(\.{2,})/', $email))
+	if (preg_match("/(\.{2,})/", $email))
 		return false;
 
 	// Break up the local and domain portions
@@ -100,7 +108,7 @@ function validateEmail($email) {
 		return false;
 
 	// Make sure local and domain don't start with or end with a period
-	if (preg_match('/(^\.|\.$)/', $local) || preg_match('/(^\.|\.$)/', $domain))
+	if (preg_match("/(^\.|\.$)/", $local) || preg_match("/(^\.|\.$)/", $domain))
 		return false;
 
 	// Check for quoted-string addresses

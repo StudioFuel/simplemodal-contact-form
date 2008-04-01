@@ -94,3 +94,9 @@ Here are some troubleshooting steps to follow:
    * Added WordPress translation ability on text elements (__() and _e() functions)
    * Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
    * Moved SimpleModal and SMCF JavaScript file loading to the footer
+* Version 1.1.1
+   * Added UTF-8 support
+   * Modified CSS
+   * Fixed URL to smcf_data.php in smcf_javascript.php
+   * Changed Ajax function in smcf_javascript.php
+   * Added back recognition for .smcf_link for previous versions

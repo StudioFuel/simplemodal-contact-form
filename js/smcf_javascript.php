@@ -1,11 +1,11 @@
 <?php require_once('../../../../wp-config.php'); ?>
 
-var smcf_url = '<?php echo get_bloginfo('wpurl') . SMCF_DIR ?>';
+var smcf_url = '<?php echo parse_url(get_bloginfo('wpurl') . SMCF_DIR, PHP_URL_PATH); ?>';
 
 // make sure jQuery is loaded
 if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 	jQuery(document).ready(function () {
-		jQuery('.smcf-link').click(function (e) {
+		jQuery('.smcf_link, .smcf-link').click(function (e) { // added .smcf_link for previous version
 			e.preventDefault();
 			// display the contact form
 			jQuery('#smcf-content').modal({
@@ -93,7 +93,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 				// validate form
 				if (contact.validate()) {
 					jQuery('#smcf-container .smcf-message').fadeOut(function () {
-						jQuery('#smcf-container .smcf-message').removeClass('error').empty();
+						jQuery('#smcf-container .smcf-message').removeClass('smcf-error').empty();
 					});
 					jQuery('#smcf-container .smcf-title').html('Sending...');
 					jQuery('#smcf-container form').fadeOut(200);
@@ -107,13 +107,18 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 								type: 'post',
 								cache: false,
 								dataType: 'html',
-								complete: function (xhr) {
+								success: function (data) {
 									jQuery('#smcf-container .smcf-loading').fadeOut(200, function () {
 										jQuery('#smcf-container .smcf-title').html('<?php _e('Thank You!'); ?>');
-										jQuery('#smcf-container .smcf-message').html(xhr.responseText).fadeIn(200);
+										jQuery('#smcf-container .smcf-message').html(data).fadeIn(200);
 									});
 								},
-								error: contact.error
+								error: function (xhr) {
+									jQuery('#smcf-container .smcf-loading').fadeOut(200, function () {
+										jQuery('#smcf-container .smcf-title').html('<?php _e('Uh oh...'); ?>');
+										jQuery('#smcf-container .smcf-message').html(xhr.status + ': ' + xhr.statusText).fadeIn(200);
+									});
+								}
 							});
 						});
 					});
@@ -151,9 +156,6 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 					});
 				});
 			});
-		},
-		error: function (xhr) {
-			alert(xhr.statusText);
 		},
 		validate: function () {
 			contact.message = '';
