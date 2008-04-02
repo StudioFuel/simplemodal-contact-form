@@ -1,6 +1,9 @@
-<?php require_once('../../../../wp-config.php'); ?>
+<?php 
+require_once('../../../../wp-config.php'); 
+$url = parse_url(get_bloginfo('wpurl') . SMCF_DIR);
+?>
 
-var smcf_url = '<?php echo parse_url(get_bloginfo('wpurl') . SMCF_DIR, PHP_URL_PATH); ?>';
+var smcf_url = '<?php echo $url['path']; ?>';
 
 // make sure jQuery is loaded
 if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
