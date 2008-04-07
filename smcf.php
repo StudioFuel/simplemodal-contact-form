@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.1.2
+Version: 1.1.3
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -176,12 +176,14 @@ class SimpleModalContactForm {
 			if (get_option('smcf_simplemodal_js') == 1) {
 				wp_enqueue_script('smcf_simplemodal', get_option('siteurl') . SMCF_DIR . '/js/jquery.simplemodal.js', null, null);
 			}
-			wp_enqueue_script('smcf', get_option('siteurl') . SMCF_DIR . '/js/smcf_javascript.php', null, null);
+			wp_enqueue_script('smcf', get_option('siteurl') . SMCF_DIR . '/js/smcf.js', null, null);
 			wp_print_scripts();
 		}
 
 		$title = get_option('smcf_form_title');
 		$title = empty($title) ? __('Send me a message') : $title;
+
+		$url = parse_url(get_bloginfo('wpurl') . SMCF_DIR);
 
 		// create the contact form HTML
 		$form = "<div id='smcf-content' style='display:none'>
@@ -191,7 +193,7 @@ class SimpleModalContactForm {
 		<h1 class='smcf-title'>" . $title . "</h1>
 		<div class='smcf-loading' style='display:none'></div>
 		<div class='smcf-message' style='display:none'></div>
-		<form action='#' style='display:none'>
+		<form action='" . $url['path'] . "/smcf_data.php' style='display:none'>
 			<label for='smcf-name'>*" . __('Name') . ":</label>
 			<input type='text' id='smcf-name' class='smcf-input' name='name' value='' tabindex='1001' />
 			<label for='smcf-email'>*" . __('Email') . ":</label>
@@ -229,7 +231,8 @@ class SimpleModalContactForm {
 	}
 
 	function token() {
-		return md5('smcf-' . $_SERVER['REMOTE_ADDR'] . date("l"));
+		$admin_email = get_option('admin_email');
+		return md5('smcf-' . $admin_email . date("WY"));
 	}
 }
 

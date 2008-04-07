@@ -19,7 +19,7 @@
 #smcf-container div.smcf-bottom a,
 #smcf-container div.smcf-bottom a:link,
 #smcf-container div.smcf-bottom a:active,
-#smcf-container div.smcf-bottom a:visited {position:relative; top:-4px; text-decoration:none; color:#666;}
+#smcf-container div.smcf-bottom a:visited {position:relative; top:-6px; text-decoration:none; color:#666;}
 #smcf-container div.smcf-bottom a:hover {color:#888;}
 #smcf-container .smcf-button {margin:4px 0 0 4px; cursor:pointer; height:24px; border:0; font-size:1em; font-weight:bold; color:#fff; text-align:center; vertical-align:middle;}
 #smcf-container .smcf-send {width:50px; background:url(../img/send.png) no-repeat;}

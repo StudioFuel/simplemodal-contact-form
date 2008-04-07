@@ -22,7 +22,7 @@ if ($action == "send") {
 		_e("Your message was successfully sent.");
 	}
 	else {
-		_e("Unfortunately, your message could not be delivered.");
+		_e("Unfortunately, your message could not be verified.");
 	}
 }
 
@@ -73,7 +73,7 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 
 	// Send email - suppress errors
 	@mail($to, $subject, $body, $headers) or 
-		die(__("Unfortunately, your message could not be delivered."));
+		die(__("Unfortunately, a server issue prevented delivery of your message."));
 }
 
 // Remove any un-safe values to prevent email injection

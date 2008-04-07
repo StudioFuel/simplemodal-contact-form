@@ -58,7 +58,7 @@ You can modify the link URL and link title on the SMCF WordPress options page.
 
 Open `simplemodal-contact-form-smcf/css/smcf.css` and modify the CSS to fit your needs. Put IE6 specific values in `simplemodal-contact-form-smcf/css/smcf-ie.css`.
 
-*Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf_javascript.php`).
+*Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf_javascript.js`).
 
 = I've followed all of the instructions, but it doesn't work...what gives? =
 
@@ -81,24 +81,30 @@ Here are some troubleshooting steps to follow:
 == Arbitrary section ==
 
 * Version 1.0
-   * Initial release
+	* Initial release
 * Version 1.0.1
-   * Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
+	* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
 * Version 1.1
-   * Fixed image pre-loading to actually pre-load ;)
-   * Added new effects on form open and close
-   * Added a security feature
-   * Added optional subject and cc sender form elements
-   * Added common classes to form elements
-   * Renamed all classes and ID's to prevent collisions
-   * Added WordPress translation ability on text elements (__() and _e() functions)
-   * Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
-   * Moved SimpleModal and SMCF JavaScript file loading to the footer
+	* Fixed image pre-loading to actually pre-load ;)
+	* Added new effects on form open and close
+	* Added a security feature
+	* Added optional subject and cc sender form elements
+	* Added common classes to form elements
+	* Renamed all classes and ID's to prevent collisions
+	* Added WordPress translation ability on text elements (__() and _e() functions)
+	* Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
+	* Moved SimpleModal and SMCF JavaScript file loading to the footer
 * Version 1.1.1
-   * Added UTF-8 support
-   * Modified CSS
-   * Fixed URL to smcf_data.php in smcf_javascript.php
-   * Changed Ajax function in smcf_javascript.php
-   * Added back recognition for .smcf_link for previous versions
+	* Added UTF-8 support
+	* Modified CSS
+	* Fixed URL to smcf_data.php in smcf_javascript.php
+	* Changed Ajax function in smcf_javascript.php
+	* Added back recognition for .smcf_link for previous versions
 * Version 1.1.2
-   * Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
+	* Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
+* Version 1.1.3
+	* Changed smcf_javascript.php to smcf.js - removed php functions
+	* Changed form action URL to point to smcf_data.php
+	* Changed verificaton method to prevent false failures
+	* Changed failure messages to indicate type of failure (verification/server failure)
+	* Modified CSS

@@ -1,13 +1,7 @@
-<?php 
-require_once('../../../../wp-config.php'); 
-$url = parse_url(get_bloginfo('wpurl') . SMCF_DIR);
-?>
-
-var smcf_url = '<?php echo $url['path']; ?>';
-
 // make sure jQuery is loaded
 if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 	jQuery(document).ready(function () {
+		var smcf_url = jQuery('#smcf-content form').attr('action');
 		jQuery('.smcf_link, .smcf-link').click(function (e) { // added .smcf_link for previous version
 			e.preventDefault();
 			// display the contact form
@@ -23,9 +17,11 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 
 		// preload images
 		var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
+		var url = jQuery('#smcf-content form').attr('action').replace(/smcf_data\.php/, 'img/');
+
 		jQuery(img).each(function () {
 			var i = new Image();
-			i.src = smcf_url + '/img/' + this;
+			i.src = url + this;
 		});
 	});
 
@@ -56,7 +52,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			}
 
 			var title = jQuery('#smcf-container .smcf-title').html();
-			jQuery('#smcf-container .smcf-title').html('<?php _e('Loading...'); ?>');
+			jQuery('#smcf-container .smcf-title').html('Loading...');
 			dialog.overlay.fadeIn(200, function () {
 				dialog.container.fadeIn(200, function () {
 					dialog.data.fadeIn(200, function () {
@@ -105,20 +101,20 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 					}, function () {
 						jQuery('#smcf-container .smcf-loading').fadeIn(200, function () {
 							jQuery.ajax({
-								url: smcf_url + '/smcf_data.php',
+								url: jQuery('#smcf-content form').attr('action'),
 								data: jQuery('#smcf-container form').serialize() + '&action=send',
 								type: 'post',
 								cache: false,
 								dataType: 'html',
 								success: function (data) {
 									jQuery('#smcf-container .smcf-loading').fadeOut(200, function () {
-										jQuery('#smcf-container .smcf-title').html('<?php _e('Thank You!'); ?>');
+										jQuery('#smcf-container .smcf-title').html('Thank You!');
 										jQuery('#smcf-container .smcf-message').html(data).fadeIn(200);
 									});
 								},
 								error: function (xhr) {
 									jQuery('#smcf-container .smcf-loading').fadeOut(200, function () {
-										jQuery('#smcf-container .smcf-title').html('<?php _e('Uh oh...'); ?>');
+										jQuery('#smcf-container .smcf-title').html('Uh oh...');
 										jQuery('#smcf-container .smcf-message').html(xhr.status + ': ' + xhr.statusText).fadeIn(200);
 									});
 								}
@@ -146,7 +142,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		},
 		close: function (dialog) {
 			jQuery('#smcf-container .smcf-message').fadeOut();
-			jQuery('#smcf-container .smcf-title').html('<?php _e('Goodbye...'); ?>');
+			jQuery('#smcf-container .smcf-title').html('Goodbye...');
 			jQuery('#smcf-container form').fadeOut(200);
 			jQuery('#smcf-container .smcf-content').animate({
 				height: '40px'
@@ -163,21 +159,21 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		validate: function () {
 			contact.message = '';
 			if (!jQuery('#smcf-container #smcf-name').val()) {
-				contact.message += '<?php _e('Name is required'); ?>. ';
+				contact.message += 'Name is required. ';
 			}
 
 			var email = jQuery('#smcf-container #smcf-email').val();
 			if (!email) {
-				contact.message += '<?php _e('Email is required'); ?>. ';
+				contact.message += 'Email is required. ';
 			}
 			else {
 				if (!contact.validateEmail(email)) {
-					contact.message += '<?php _e('Email is invalid'); ?>. ';
+					contact.message += 'Email is invalid. ';
 				}
 			}
 
 			if (!jQuery('#smcf-container #smcf-message').val()) {
-				contact.message += '<?php _e('Message is required'); ?>.';
+				contact.message += 'Message is required.';
 			}
 
 			if (contact.message.length > 0) {
