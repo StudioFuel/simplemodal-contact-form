@@ -3,7 +3,7 @@ Contributors: emartin24
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript
 Requires at least: ?
 Tested up to: 2.5
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -40,7 +40,7 @@ b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for exam
 	<?php if (function_exists('smcf')) : ?>
 		<?php smcf(); ?>
 	<?php endif; ?>
-	
+
 == Frequently Asked Questions ==
 
 = How do I change the output of the smcf() function? =
@@ -59,6 +59,10 @@ You can modify the link URL and link title on the SMCF WordPress options page.
 Open `simplemodal-contact-form-smcf/css/smcf.css` and modify the CSS to fit your needs. Put IE6 specific values in `simplemodal-contact-form-smcf/css/smcf-ie.css`.
 
 *Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf_javascript.js`).
+
+= What does the "Unfortunately, your message could not be verified." message mean? =
+
+Starting in SMCF v1.1, there is a new "security" feature that attempts to ward off unwanted spam. A "token" is created and placed in the contact form. When the form is submitted, the token is verified and if the token does not exist or fails verification, the user will see the "Unfortunately, your message could not be verified." message. If this is happening for legitimate users, please let me know!
 
 = I've followed all of the instructions, but it doesn't work...what gives? =
 
