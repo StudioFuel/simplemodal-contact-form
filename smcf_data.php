@@ -64,8 +64,12 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 	$headers .= "X-Mailer: PHP/SimpleModalContactForm";
 
 	// UTF-8
-	$subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
-	//$subject = "=?$charset?B?" . base64_encode($subject) . "?=\n";
+	if (function_exists('mb_encode_mimeheader')) {
+		$subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
+	}
+	else {
+		$subject = "=?$charset?B?" . base64_encode($subject) . "?=\n";
+	}
 	$headers .= "MIME-Version: 1.0\n";
 	$headers .= "Content-type: text/plain; charset=utf-8\n";
 	$headers .= "Content-Transfer-Encoding: quoted-printable\n";
