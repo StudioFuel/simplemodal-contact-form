@@ -68,12 +68,12 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 		$subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
 	}
 	else {
-		$subject = "=?$charset?B?" . base64_encode($subject) . "?=\n";
+		// you need to enable mb_encode_mimeheader or risk 
+		// getting emails that are not UTF-8 encoded
 	}
 	$headers .= "MIME-Version: 1.0\n";
 	$headers .= "Content-type: text/plain; charset=utf-8\n";
 	$headers .= "Content-Transfer-Encoding: quoted-printable\n";
-	//$headers .= "Content-Transfer-Encoding: 8bit\n";
 
 	// Send email - suppress errors
 	@mail($to, $subject, $body, $headers) or 
