@@ -4,7 +4,7 @@ Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript
 Requires at least: ?
 Tested up to: 2.6.2
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -113,3 +113,5 @@ Here are some troubleshooting steps to follow:
 	* Changed verificaton method to prevent false failures
 	* Changed failure messages to indicate type of failure (verification/server failure)
 	* Modified CSS
+* Version 1.1.4
+	* Fixed broken Subject encoding
