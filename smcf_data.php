@@ -19,10 +19,10 @@ if ($action == "send") {
 	// make sure the token matches
 	if ($token == SimpleModalContactForm::token()) {
 		sendEmail($name, $email, $subject, $message, $cc);
-		_e("Your message was successfully sent.");
+		_e("Your message was successfully sent.", "smcf");
 	}
 	else {
-		_e("Unfortunately, your message could not be verified.");
+		_e("Unfortunately, your message could not be verified.", "smcf");
 	}
 }
 
@@ -77,7 +77,7 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 
 	// Send email - suppress errors
 	@mail($to, $subject, $body, $headers) or 
-		die(__("Unfortunately, a server issue prevented delivery of your message."));
+		die(__("Unfortunately, a server issue prevented delivery of your message.", "smcf"));
 }
 
 // Remove any un-safe values to prevent email injection
