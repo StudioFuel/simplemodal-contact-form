@@ -32,8 +32,8 @@ define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 class SimpleModalContactForm {
 
 	function init() {
-		if (function_exists('load_plugin_textdomain')) {
-			load_plugin_textdomain('smcf', SMCF_DIR . 'lang/');
+		if (function_exists("load_plugin_textdomain")) {
+			load_plugin_textdomain("smcf", SMCF_DIR . "lang/");
 		}
 	}
 
@@ -260,7 +260,7 @@ class SimpleModalContactForm {
 $smcf = new SimpleModalContactForm();
 
 // Initialize textdomain - L10n
-add_action('init', array($smcf, 'init'));
+add_action("init", array($smcf, "init"));
 
 // Place a 'SimpleModal Contact Form' sub menu item on the Options page
 add_action("admin_menu", array($smcf, "submenu"));

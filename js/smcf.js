@@ -1,7 +1,6 @@
 // make sure jQuery is loaded
 if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 	jQuery(document).ready(function () {
-		var smcf_url = jQuery('#smcf-content form').attr('action');
 		jQuery('.smcf_link, .smcf-link').click(function (e) { // added .smcf_link for previous version
 			e.preventDefault();
 			// display the contact form
@@ -17,12 +16,13 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 
 		// preload images
 		var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
-		var url = jQuery('#smcf-content form').attr('action').replace(/smcf_data\.php/, 'img/');
-
-		jQuery(img).each(function () {
-			var i = new Image();
-			i.src = url + this;
-		});
+		if (jQuery('#smcf-content form').length > 0) {
+			var url = jQuery('#smcf-content form').attr('action').replace(/smcf_data\.php/, 'img/');
+			jQuery(img).each(function () {
+				var i = new Image();
+				i.src = url + this;
+			});
+		}
 	});
 
 	var contact = {
@@ -136,7 +136,6 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 							height: '30px'
 						}, contact.showError);
 					}
-					
 				}
 			});
 		},
