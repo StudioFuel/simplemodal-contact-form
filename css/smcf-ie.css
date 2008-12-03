@@ -1,5 +1,0 @@
-/* IE 6 hacks*/
-body {height:100%; width:100%;}
-#smcf-container {top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
-#smcf-container div.smcf-top {background:url(../img/form_top_ie.gif) no-repeat;}
-#smcf-container form {padding:0; margin:0;}

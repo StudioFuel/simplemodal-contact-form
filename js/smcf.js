@@ -6,6 +6,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			// display the contact form
 			jQuery('#smcf-content').modal({
 				close: false,
+				position: [0,"15%"],
 				overlayId: 'smcf-overlay',
 				containerId: 'smcf-container',
 				onOpen: contact.open,
@@ -15,7 +16,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		});
 
 		// preload images
-		var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
+		var img = ['cancel.png','form_bottom.gif','form_top.gif','loading.gif','send.png'];
 		if (jQuery('#smcf-content form').length > 0) {
 			var url = jQuery('#smcf-content form').attr('action').replace(/smcf_data\.php/, 'img/');
 			jQuery(img).each(function () {
@@ -29,7 +30,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		message: null,
 		open: function (dialog) {
 			// dynamically determine height
-			var h = 250;
+			var h = 280;
 			if (jQuery('#smcf-subject').length) {
 				h += 26;
 			}

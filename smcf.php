@@ -170,10 +170,7 @@ class SimpleModalContactForm {
 		}
 
 		// add styling
-		echo "<link type='text/css' rel='stylesheet' href='" . get_bloginfo("wpurl") . SMCF_DIR . "/css/smcf.css' media='screen'/>
-<!--[if lt IE 7]>
-<link type='text/css' rel='stylesheet' href='" . get_bloginfo("wpurl") . SMCF_DIR . "/css/smcf-ie.css' media='screen' />
-<![endif]-->";
+		echo "<link type='text/css' rel='stylesheet' href='" . get_bloginfo("wpurl") . SMCF_DIR . "/css/smcf.css' media='screen'/>";
 	}
 
 	function footer() {
@@ -182,7 +179,7 @@ class SimpleModalContactForm {
 			if (get_option("smcf_simplemodal_js") == 1) {
 				wp_enqueue_script("smcf_simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", null, null);
 			}
-			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", null, null);
+			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js");
 			wp_print_scripts();
 		}
 
@@ -208,7 +205,7 @@ class SimpleModalContactForm {
 
 		// create the contact form HTML
 		$output .= "<div id='smcf-content' style='display:none'>
-	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
+	<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
 	<div class='smcf-top'></div>
 	<div class='smcf-content'>
 		<h1 class='smcf-title'>" . $title . "</h1>
@@ -226,21 +223,17 @@ class SimpleModalContactForm {
 		}
 
 		$output .= "<label for='smcf-message'>*" . __("Message", "smcf") . ":</label>
-			<textarea id='smcf-message' class='smcf-input' name='message' cols='40' rows='4' tabindex='1004'></textarea>";
+			<textarea id='smcf-message' class='smcf-input' name='message' cols='40' rows='4' tabindex='1004'></textarea><br/>";
 
 		if (get_option("smcf_form_cc_sender") == 1) {
-			$output .= "<br/>
-			<label>&nbsp;</label>
+			$output .= "<label>&nbsp;</label>
 			<input type='checkbox' id='smcf-cc' name='cc' value='1' tabindex='1005' /> <span class='smcf-cc'>" . __("Send me a copy", "smcf") . "</span>
 			<br/>";
-		}
-		else {
-			$output .= "<br/>";
 		}
 
 		$output .= "<label>&nbsp;</label>
 			<button type='submit' class='smcf-button smcf-send' tabindex='1006'>" . __("Send", "smcf") . "</button>
-			<button type='submit' class='smcf-button smcf-cancel modalClose' tabindex='1007'>" . __("Cancel", "smcf") . "</button>
+			<button type='submit' class='smcf-button smcf-cancel simplemodal-close' tabindex='1007'>" . __("Cancel", "smcf") . "</button>
 			<input type='hidden' name='token' value='" . $this->token() . "'/>
 			<br/>
 		</form>
@@ -267,7 +260,7 @@ add_action("admin_menu", array($smcf, "submenu"));
 
 // Include SimpleModal Contact Form code to a page
 add_action("wp_head", array($smcf, "head"));
-add_action("wp_footer", array($smcf, "footer"));
+add_action("wp_footer", array($smcf, "footer"), 10);
 
 /*
  * Public function to create a link for the contact form
