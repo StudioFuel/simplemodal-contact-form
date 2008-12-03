@@ -1,0 +1,213 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SimpleModal Contact Form (SMCF)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-02 22:29-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Eric Martin <eric@ericmmartin.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: smcf.php:51
+msgid "Options saved."
+msgstr ""
+
+#: smcf.php:70
+#: smcf.php:187
+msgid "Send me a message"
+msgstr ""
+
+#: smcf.php:86
+msgid "SimpleModal Contact Form Configuration"
+msgstr ""
+
+#: smcf.php:91
+#: smcf.php:153
+msgid "Update Options &raquo;"
+msgstr ""
+
+#: smcf.php:95
+msgid "JavaScript:"
+msgstr ""
+
+#: smcf.php:99
+msgid "Include jQuery"
+msgstr ""
+
+#: smcf.php:100
+msgid "Select the option above if you do not already have the jQuery JavaScript file included in your site. This plugin requires jQuery 1.2 or greater."
+msgstr ""
+
+#: smcf.php:101
+msgid "Include SimpleModal"
+msgstr ""
+
+#: smcf.php:102
+msgid "Select the option above if you do not already have the SimpleModal JavaScript file included in your site."
+msgstr ""
+
+#: smcf.php:106
+msgid "Contact Link URL:"
+msgstr ""
+
+#: smcf.php:108
+msgid "The URL for the contact link to your contact form page. This is the URL that non-JavaScript users will be taken to."
+msgstr ""
+
+#: smcf.php:111
+msgid "Contact Link Title:"
+msgstr ""
+
+#: smcf.php:113
+msgid "The title for the contact link to your contact form page."
+msgstr ""
+
+#: smcf.php:116
+msgid "Form Title:"
+msgstr ""
+
+#: smcf.php:118
+msgid "Enter the title that you want displayed on your contact form."
+msgstr ""
+
+#: smcf.php:121
+msgid "Form To:"
+msgstr ""
+
+#: smcf.php:123
+msgid "Enter the email address that you want all contact emails to be sent to. The default is your WordPress administrator email."
+msgstr ""
+
+#: smcf.php:126
+msgid "Form Subject:"
+msgstr ""
+
+#: smcf.php:128
+msgid "Enter the default subject that you want all contact emails to be sent with. This value will be used if you do not enable the subject field or if you do enable the subject field, but the user does not enter a subject."
+msgstr ""
+
+#: smcf.php:131
+msgid "Form Elements:"
+msgstr ""
+
+#: smcf.php:135
+msgid "Include Subject Field"
+msgstr ""
+
+#: smcf.php:136
+msgid "Select the option above if you would like the contact form to include a subject field. The field will not be required and if not entered, will use the Default Subject value from below."
+msgstr ""
+
+#: smcf.php:137
+msgid "Include 'Send me a copy' Option"
+msgstr ""
+
+#: smcf.php:138
+msgid "Select the option above if you would like the contact form to include a 'Send me a copy' option for the sender."
+msgstr ""
+
+#: smcf.php:142
+msgid "Extra:"
+msgstr ""
+
+#: smcf.php:146
+msgid "Include the users IP Address"
+msgstr ""
+
+#: smcf.php:147
+msgid "Include the users User Agent"
+msgstr ""
+
+#: smcf.php:148
+msgid "Select the options above to included extra user information in the contact email.<br/><b>Note:</b> These values will be sent to the sender if 'Send me a copy' is enabled and checked."
+msgstr ""
+
+#: smcf.php:194
+msgid "Loading..."
+msgstr ""
+
+#: smcf.php:195
+msgid "Sending..."
+msgstr ""
+
+#: smcf.php:196
+msgid "Thank You!"
+msgstr ""
+
+#: smcf.php:197
+msgid "Uh oh..."
+msgstr ""
+
+#: smcf.php:198
+msgid "Goodbye..."
+msgstr ""
+
+#: smcf.php:199
+msgid "Name is required."
+msgstr ""
+
+#: smcf.php:200
+msgid "Email is required."
+msgstr ""
+
+#: smcf.php:201
+msgid "Email is invalid."
+msgstr ""
+
+#: smcf.php:202
+msgid "Message is required."
+msgstr ""
+
+#: smcf.php:215
+msgid "Name"
+msgstr ""
+
+#: smcf.php:217
+msgid "Email"
+msgstr ""
+
+#: smcf.php:221
+msgid "Subject"
+msgstr ""
+
+#: smcf.php:225
+msgid "Message"
+msgstr ""
+
+#: smcf.php:230
+msgid "Send me a copy"
+msgstr ""
+
+#: smcf.php:235
+msgid "Send"
+msgstr ""
+
+#: smcf.php:236
+msgid "Cancel"
+msgstr ""
+
+#: smcf.php:241
+msgid "Powered by"
+msgstr ""
+
+#: smcf.php:274
+msgid "Contact"
+msgstr ""
+
+#: smcf_data.php:22
+msgid "Your message was successfully sent."
+msgstr ""
+
+#: smcf_data.php:25
+msgid "Unfortunately, your message could not be verified."
+msgstr ""
+
+#: smcf_data.php:80
+msgid "Unfortunately, a server issue prevented delivery of your message."
+msgstr ""
+
