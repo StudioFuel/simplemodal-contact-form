@@ -14,7 +14,7 @@ SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form.
 
 It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
-SMCF has options to include the jQuery and SimpleModal files as well as whether to include certain contact form elements, like a Subject field and "Send me a copy" option for the sender.
+SMCF has options to include certain contact form elements, like a Subject field and "Send me a copy" option for the sender.
 
 == Installation ==
 
