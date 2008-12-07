@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.1.5
+Version: 1.2
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -31,9 +31,22 @@ define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
 class SimpleModalContactForm {
 
+	var $version = "1.2";
+
 	function init() {
 		if (function_exists("load_plugin_textdomain")) {
 			load_plugin_textdomain("smcf", SMCF_DIR . "/lang/");
+		}
+
+		// add javascript files
+		if (function_exists("wp_enqueue_script")) {
+			// load the jQuery version that comes with WordPress
+			wp_enqueue_script("jquery");
+		}
+
+		// add styling
+		if (function_exists("wp_enqueue_style")) {
+			wp_enqueue_style("smcf", get_option("siteurl") . SMCF_DIR . "/css/smcf.css", null, $this->version, "screen");
 		}
 	}
 
@@ -49,8 +62,6 @@ class SimpleModalContactForm {
 		if ($_POST["action"] && $_POST["action"] == "update") {
 			// save options
 			$message = _e("Options saved.", "smcf");
-			update_option("smcf_jquery_js", $_POST["smcf_jquery_js"]);
-			update_option("smcf_simplemodal_js", $_POST["smcf_simplemodal_js"]); 
 			update_option("smcf_link_url", $_POST["smcf_link_url"]); 
 			update_option("smcf_link_title", $_POST["smcf_link_title"]);
 			update_option("smcf_form_subject", $_POST["smcf_form_subject"]);
@@ -84,24 +95,9 @@ class SimpleModalContactForm {
 <?php endif; ?>
 <div class="wrap">
 <h2><?php _e("SimpleModal Contact Form Configuration", "smcf"); ?></h2>
-
 <form id="smcf_form" method="post" action="options.php">
 <?php wp_nonce_field("update-options") ?>
-<p class="submit">
-	<input type="submit" name="Submit" value="<?php _e("Update Options &raquo;", "smcf"); ?>" />
-</p>
-<table class="optiontable">
-	<tr valign="top">
-		<th scope="row"><?php _e("JavaScript:", "smcf"); ?></th>
-		<td>
-			<label for="smcf_jquery_js">
-			<input name="smcf_jquery_js" type="checkbox" id="smcf_jquery_js" value="1" <?php checked("1", get_option("smcf_jquery_js")); ?> />
-			<?php _e("Include jQuery", "smcf"); ?></label>
-			<p><?php _e("Select the option above if you do not already have the jQuery JavaScript file included in your site. This plugin requires jQuery 1.2 or greater.", "smcf"); ?></p>
-			<label for="smcf_simplemodal_js"><input name="smcf_simplemodal_js" type="checkbox" id="smcf_simplemodal_js" value="1" <?php checked("1", get_option("smcf_simplemodal_js")); ?> /> <?php _e("Include SimpleModal", "smcf"); ?></label>
-			<p><?php _e("Select the option above if you do not already have the SimpleModal JavaScript file included in your site.", "smcf"); ?></p>
-		</td>
-	</tr>
+<table class="form-table">
 	<tr valign="top">
 		<th scope="row"><?php _e("Contact Link URL:", "smcf"); ?></th>
 		<td><input type="text" id="smcf_link_url" name="smcf_link_url" value="<?php echo $smcf_link_url; ?>" size="40" class="code"/>
@@ -150,10 +146,10 @@ class SimpleModalContactForm {
 	</tr>
 </table>
 <p class="submit">
-	<input type="submit" name="submit" value="<?php _e("Update Options &raquo;", "smcf"); ?>" />
+	<input type="submit" name="submit" value="<?php _e("Save Changes", "smcf"); ?>" />
 </p>
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="smcf_jquery_js,smcf_simplemodal_js,smcf_link_url,smcf_link_title,smcf_form_title,smcf_form_subject,smcf_form_cc_sender,smcf_to_email,smcf_subject,smcf_ip,smcf_ua" />
+<input type="hidden" name="page_options" value="smcf_link_url,smcf_link_title,smcf_form_title,smcf_form_subject,smcf_form_cc_sender,smcf_to_email,smcf_subject,smcf_ip,smcf_ua" />
 </form>
 
 </div>
@@ -161,25 +157,18 @@ class SimpleModalContactForm {
 	}
 
 	function head() {
-		// add javascript files
-		if (function_exists("wp_enqueue_script")) {
-			if (get_option("smcf_jquery_js") == 1) {
-				wp_enqueue_script("smcf_jquery", get_option("siteurl") . SMCF_DIR . "/js/jquery.js", null, null);
-			}
-			wp_print_scripts();
-		}
-
-		// add styling
-		echo "<link type='text/css' rel='stylesheet' href='" . get_bloginfo("wpurl") . SMCF_DIR . "/css/smcf.css' media='screen'/>";
+		/*
+		 * WordPress 2.6.5 and below do now include the wp_print_styles filter in wp_head...
+		 * So, we need to call it here, just in case
+		 */
+		wp_print_styles("smcf");
 	}
 
 	function footer() {
 		// add javascript files
 		if (function_exists("wp_enqueue_script")) {
-			if (get_option("smcf_simplemodal_js") == 1) {
-				wp_enqueue_script("smcf_simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", null, null);
-			}
-			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js");
+			wp_enqueue_script("simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery", "1.2.1");
+			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "simplemodal"), "1.2");
 			wp_print_scripts();
 		}
 

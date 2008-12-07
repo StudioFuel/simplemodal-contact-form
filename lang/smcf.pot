@@ -9,189 +9,168 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: smcf.php:51
+#: smcf.php:64
 msgid "Options saved."
 msgstr ""
 
-#: smcf.php:70
-#: smcf.php:187
+#: smcf.php:81
+#: smcf.php:176
 msgid "Send me a message"
 msgstr ""
 
-#: smcf.php:86
+#: smcf.php:97
 msgid "SimpleModal Contact Form Configuration"
 msgstr ""
 
-#: smcf.php:91
-#: smcf.php:153
-msgid "Update Options &raquo;"
-msgstr ""
-
-#: smcf.php:95
-msgid "JavaScript:"
-msgstr ""
-
-#: smcf.php:99
-msgid "Include jQuery"
-msgstr ""
-
-#: smcf.php:100
-msgid "Select the option above if you do not already have the jQuery JavaScript file included in your site. This plugin requires jQuery 1.2 or greater."
-msgstr ""
-
-#: smcf.php:101
-msgid "Include SimpleModal"
-msgstr ""
-
 #: smcf.php:102
-msgid "Select the option above if you do not already have the SimpleModal JavaScript file included in your site."
-msgstr ""
-
-#: smcf.php:106
 msgid "Contact Link URL:"
 msgstr ""
 
-#: smcf.php:108
+#: smcf.php:104
 msgid "The URL for the contact link to your contact form page. This is the URL that non-JavaScript users will be taken to."
 msgstr ""
 
-#: smcf.php:111
+#: smcf.php:107
 msgid "Contact Link Title:"
 msgstr ""
 
-#: smcf.php:113
+#: smcf.php:109
 msgid "The title for the contact link to your contact form page."
 msgstr ""
 
-#: smcf.php:116
+#: smcf.php:112
 msgid "Form Title:"
 msgstr ""
 
-#: smcf.php:118
+#: smcf.php:114
 msgid "Enter the title that you want displayed on your contact form."
 msgstr ""
 
-#: smcf.php:121
+#: smcf.php:117
 msgid "Form To:"
 msgstr ""
 
-#: smcf.php:123
+#: smcf.php:119
 msgid "Enter the email address that you want all contact emails to be sent to. The default is your WordPress administrator email."
 msgstr ""
 
-#: smcf.php:126
+#: smcf.php:122
 msgid "Form Subject:"
 msgstr ""
 
-#: smcf.php:128
+#: smcf.php:124
 msgid "Enter the default subject that you want all contact emails to be sent with. This value will be used if you do not enable the subject field or if you do enable the subject field, but the user does not enter a subject."
 msgstr ""
 
-#: smcf.php:131
+#: smcf.php:127
 msgid "Form Elements:"
 msgstr ""
 
-#: smcf.php:135
+#: smcf.php:131
 msgid "Include Subject Field"
 msgstr ""
 
-#: smcf.php:136
+#: smcf.php:132
 msgid "Select the option above if you would like the contact form to include a subject field. The field will not be required and if not entered, will use the Default Subject value from below."
 msgstr ""
 
-#: smcf.php:137
+#: smcf.php:133
 msgid "Include 'Send me a copy' Option"
 msgstr ""
 
-#: smcf.php:138
+#: smcf.php:134
 msgid "Select the option above if you would like the contact form to include a 'Send me a copy' option for the sender."
 msgstr ""
 
-#: smcf.php:142
+#: smcf.php:138
 msgid "Extra:"
 msgstr ""
 
-#: smcf.php:146
+#: smcf.php:142
 msgid "Include the users IP Address"
 msgstr ""
 
-#: smcf.php:147
+#: smcf.php:143
 msgid "Include the users User Agent"
 msgstr ""
 
-#: smcf.php:148
+#: smcf.php:144
 msgid "Select the options above to included extra user information in the contact email.<br/><b>Note:</b> These values will be sent to the sender if 'Send me a copy' is enabled and checked."
 msgstr ""
 
-#: smcf.php:194
+#: smcf.php:149
+msgid "Save Changes"
+msgstr ""
+
+#: smcf.php:183
 msgid "Loading..."
 msgstr ""
 
-#: smcf.php:195
+#: smcf.php:184
 msgid "Sending..."
 msgstr ""
 
-#: smcf.php:196
+#: smcf.php:185
 msgid "Thank You!"
 msgstr ""
 
-#: smcf.php:197
+#: smcf.php:186
 msgid "Uh oh..."
 msgstr ""
 
-#: smcf.php:198
+#: smcf.php:187
 msgid "Goodbye..."
 msgstr ""
 
-#: smcf.php:199
+#: smcf.php:188
 msgid "Name is required."
 msgstr ""
 
-#: smcf.php:200
+#: smcf.php:189
 msgid "Email is required."
 msgstr ""
 
-#: smcf.php:201
+#: smcf.php:190
 msgid "Email is invalid."
 msgstr ""
 
-#: smcf.php:202
+#: smcf.php:191
 msgid "Message is required."
 msgstr ""
 
-#: smcf.php:215
+#: smcf.php:204
 msgid "Name"
 msgstr ""
 
-#: smcf.php:217
+#: smcf.php:206
 msgid "Email"
 msgstr ""
 
-#: smcf.php:221
+#: smcf.php:210
 msgid "Subject"
 msgstr ""
 
-#: smcf.php:225
+#: smcf.php:214
 msgid "Message"
 msgstr ""
 
-#: smcf.php:230
+#: smcf.php:219
 msgid "Send me a copy"
 msgstr ""
 
-#: smcf.php:235
+#: smcf.php:224
 msgid "Send"
 msgstr ""
 
-#: smcf.php:236
+#: smcf.php:225
 msgid "Cancel"
 msgstr ""
 
-#: smcf.php:241
+#: smcf.php:230
 msgid "Powered by"
 msgstr ""
 
-#: smcf.php:274
+#: smcf.php:263
 msgid "Contact"
 msgstr ""
 

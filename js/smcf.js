@@ -6,7 +6,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			// display the contact form
 			jQuery('#smcf-content').modal({
 				close: false,
-				position: [0,"15%"],
+				position: ["15%",],
 				overlayId: 'smcf-overlay',
 				containerId: 'smcf-container',
 				onOpen: contact.open,
@@ -98,7 +98,7 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 					jQuery('#smcf-container .smcf-title').html(smcf_messages.sending);
 					jQuery('#smcf-container form').fadeOut(200);
 					jQuery('#smcf-container .smcf-content').animate({
-						height: '80px'
+						height: '90px'
 					}, function () {
 						jQuery('#smcf-container .smcf-loading').fadeIn(200, function () {
 							jQuery.ajax({

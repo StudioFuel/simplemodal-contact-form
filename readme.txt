@@ -3,8 +3,8 @@ Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript
 Requires at least: ?
-Tested up to: 2.6.5
-Stable tag: 1.1.4
+Tested up to: 2.7
+Stable tag: 1.2
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -27,7 +27,7 @@ SMCF has options to include the jQuery and SimpleModal files as well as whether 
 
 1. Unzip SMCF archive and put all files/folders into your "plugins" folder (`/wp-content/plugins/`). You should end up with `/wp-content/plugins/simplemodal-contact-form-smcf/`.
 2. Activate the plugin (WordPress Admin > Plugins > Click "Activate" for "SimpleModal Contact Form (SMCF)")
-3. Set the desired options (WordPress Admin >  Options (Settings in WordPress 2.5) > SimpleModal Contact Form)
+3. Set the desired options (Admin Dashboard >  Settings > SimpleModal Contact Form)
 4. Enable SMCF on your site! SMCF works by looking for links (HTML A elements) with a class of "smcf-link". See below:
 
 You have 2 options:
@@ -57,13 +57,17 @@ You can modify the link URL and link title on the SMCF WordPress options page.
 
 = How do I change the styling of the contact form? =
 
-Open `simplemodal-contact-form-smcf/css/smcf.css` and modify the CSS to fit your needs. Put IE6 specific values in `simplemodal-contact-form-smcf/css/smcf-ie.css`.
+Open `simplemodal-contact-form-smcf/css/smcf.css` and modify the CSS to fit your needs.
 
-*Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf_javascript.js`).
+*Note*: There are some browser specific CSS values that are set in the JavaScript (`simplemodal-contact-form-smcf/js/smcf.js`).
 
 = What does the "Unfortunately, your message could not be verified." message mean? =
 
 Starting in SMCF v1.1, there is a new "security" feature that attempts to ward off unwanted spam. A "token" is created and placed in the contact form. When the form is submitted, the token is verified and if the token does not exist or fails verification, the user will see the "Unfortunately, your message could not be verified." message. If this is happening for legitimate users, please let me know!
+
+= What does the "Unfortunately, a server issue prevented delivery of your message." message mean? =
+
+It means a server issue was encountered. See the last item in the next FAQ:
 
 = I've followed all of the instructions, but it doesn't work...what gives? =
 
@@ -71,8 +75,8 @@ Here are some troubleshooting steps to follow:
 
 * Use Firefox and Firebug or if you must use IE, turn on JavaScript debugging and install the Developer Toolbar (search Google if you are unsure of how to do any of these)
 * Make sure the footer.php file in your theme, contains `<?php wp_footer(); ?>`
-* Make sure all of the JavaScript files are loaded
-* Make sure no other plugins are loading older version of jQuery (SMCF requires jQuery 1.2 or greater)
+* Make sure all of the JavaScript files are loaded (jquery, jquery.simplemodal and smcf)
+* Make sure no other plugins are loading an older version of jQuery (SMCF requires jQuery 1.2 or greater)
 * Make sure PHP's `mail()` is installed and working. (You can also open `smcf_data.php` and remove the @ from `@mail`. That will echo out any errors that it throws while trying to send mail.)
 
 == Screenshots ==
@@ -81,7 +85,6 @@ Here are some troubleshooting steps to follow:
 2. The validation messages displayed for required/invalid fields.
 3. The contact form in the process of sending.
 4. A successful message.
-5. The WordPress Admin options for SMCF.
 
 == Arbitrary section ==
 
@@ -110,14 +113,16 @@ Here are some troubleshooting steps to follow:
 * Version 1.1.3
 	* Changed smcf_javascript.php to smcf.js - removed php functions
 	* Changed form action URL to point to smcf_data.php
-	* Changed verificaton method to prevent false failures
+	* Changed verification method to prevent false failures
 	* Changed failure messages to indicate type of failure (verification/server failure)
 	* Modified CSS
 * Version 1.1.4
 	* Fixed broken Subject encoding
-* Version 1.1.5
-	* Upgraded jQuery to v1.2.6
-	* Upgraded SimpleModal to 1.1.2
+* Version 1.2
+	* Upgraded SimpleModal to 1.2.1
 	* Removed IE specific CSS and PNG files
 	* Added localization (lang/smcf.pot)
 	* Made contact form wider and increased height of textarea
+	* Removed included jQuery - changed to using version included with WordPress
+	* Switched style and script loading to use wp_enqueue_style and wp_enqueue_script respectively
+	* Removed options to include jQuery and SimpleModal 
