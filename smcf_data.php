@@ -34,6 +34,9 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 	$name = filter($name);
 	$subject = empty($subject) ? get_option("smcf_subject") : filter($subject);
 
+	// remove escaping done by magic_quotes
+	$message = stripslashes($message);
+
 	// filter and validate email
 	$email = filter($email);
 	if (!validateEmail($email)) {
@@ -54,7 +57,7 @@ function sendEmail($name, $email, $subject, $message, $cc) {
 	// Set and wordwrap message body
 	$body = "From: $name\n\n";
 	$body .= "Message: $message";
-	$body = wordwrap($body, 70);
+	$body = wordwrap($body); // default is 75 characters
 
 	// Build header
 	$headers = "From: $email\n";
