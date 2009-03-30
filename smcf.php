@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.2.1
+Version: 1.2.2
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -31,7 +31,7 @@ define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
 class SimpleModalContactForm {
 
-	var $version = "1.2.1";
+	var $version = "1.2.2";
 
 	function init() {
 		if (function_exists("load_plugin_textdomain")) {
@@ -158,7 +158,7 @@ class SimpleModalContactForm {
 
 	function head() {
 		/*
-		 * WordPress 2.6.5 and below do now include the wp_print_styles filter in wp_head...
+		 * WordPress 2.6.5 and below does not include the wp_print_styles filter in wp_head...
 		 * So, we need to call it here, just in case
 		 */
 		if (function_exists("wp_print_styles")) {
@@ -182,15 +182,15 @@ class SimpleModalContactForm {
 		$output = "
 	<script type='text/javascript'>
 		var smcf_messages = {
-			loading: '" . __("Loading...", "smcf") . "',
-			sending: '" . __("Sending...", "smcf") . "',
-			thankyou: '" . __("Thank You!", "smcf") . "',
-			error: '" . __("Uh oh...", "smcf") . "',
-			goodbye: '" . __("Goodbye...", "smcf") . "',
-			namerequired: '" . __("Name is required.", "smcf") . "',
-			emailrequired: '" . __("Email is required.", "smcf") . "',
-			emailinvalid: '" . __("Email is invalid.", "smcf") . "',
-			messagerequired: '" . __("Message is required.", "smcf") . "'
+			loading: '" . addslashes(__("Loading...", "smcf")) . "',
+			sending: '" . addslashes(__("Sending...", "smcf")) . "',
+			thankyou: '" . addslashes(__("Thank You!", "smcf")) . "',
+			error: '" . addslashes(__("Uh oh...", "smcf")) . "',
+			goodbye: '" . addslashes(__("Goodbye...", "smcf")) . "',
+			namerequired: '" . addslashes(__("Name is required.", "smcf")) . "',
+			emailrequired: '" . addslashes(__("Email is required.", "smcf")) . "',
+			emailinvalid: '" . addslashes(__("Email is invalid.", "smcf")) . "',
+			messagerequired: '" . addslashes(__("Message is required.", "smcf")) . "'
 		}
 	</script>";
 

@@ -1,4 +1,4 @@
-// make sure jQuery is loaded
+// make sure jQuery and SimpleModal are loaded
 if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 	jQuery(document).ready(function () {
 		jQuery('.smcf_link, .smcf-link').click(function (e) { // added .smcf_link for previous version

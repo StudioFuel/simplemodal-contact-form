@@ -129,3 +129,8 @@ Here are some troubleshooting steps to follow:
 * Version 1.2.1
 	* Upgraded SimpleModal to 1.2.2
 	* Added function_exists() check for wp_print_styles
+* Version 1.2.2
+	* Upgraded SimpleModal to 1.2.3
+	* Added addslashes() function for smcf_messages JavaScript object
+	* Added stripslashes() function for the email message
+	* Removed 70 character limit for wordwrap() function - defaults to 75
