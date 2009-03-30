@@ -158,22 +158,39 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 		},
 		validate: function () {
 			contact.message = '';
+			var req = [],
+				invalid = "";
+
 			if (!jQuery('#smcf-container #smcf-name').val()) {
-				contact.message += smcf_messages.namerequired + ' ';
+				req.push(smcf_messages.name);
 			}
 
 			var email = jQuery('#smcf-container #smcf-email').val();
 			if (!email) {
-				contact.message += smcf_messages.emailrequired + ' ';
+				req.push(smcf_messages.email);
 			}
 			else {
 				if (!contact.validateEmail(email)) {
-					contact.message += smcf_messages.emailinvalid + ' ';
+					invalid = smcf_messages.emailinvalid;
 				}
 			}
 
+			if (!jQuery('#smcf-container #smcf-subject').val()) {
+				req.push(smcf_messages.subject);
+			}
+
 			if (!jQuery('#smcf-container #smcf-message').val()) {
-				contact.message += smcf_messages.messagerequired;
+				req.push(smcf_messages.message);
+			}
+
+			if (req.length > 0) {
+				contact.message += req.join(', ');
+				contact.message += ' ' + (req.length > 1 ? smcf_messages.are : smcf_messages.is);
+				contact.message += ' ' + smcf_messages.required;
+			}
+
+			if (invalid.length > 0) {
+				contact.message += (req.length > 0 ? ' ' : '') + smcf_messages.emailinvalid;
 			}
 
 			if (contact.message.length > 0) {

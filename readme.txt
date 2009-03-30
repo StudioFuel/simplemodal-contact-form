@@ -30,7 +30,7 @@ SMCF has options to include certain contact form elements, like a Subject field 
 3. Set the desired options (Admin Dashboard >  Settings > SimpleModal Contact Form)
 4. Enable SMCF on your site! SMCF works by looking for links (HTML A elements) with a class of "smcf-link". See below:
 
-You have 2 options:
+You have 3 options:
 
 a) Add the "smcf-link" to your existing contact link:
 
@@ -41,6 +41,8 @@ b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for exam
 	<?php if (function_exists('smcf')) : ?>
 		<?php smcf(); ?>
 	<?php endif; ?>
+
+c) If your contact link is generated using `wp_page_menu()`, you can enter the contact link title in the SMCF Options under "Contact Link Title" and SMCF will automatically attempt to add the smcf-link class for that link.
 
 == Frequently Asked Questions ==
 
@@ -134,3 +136,4 @@ Here are some troubleshooting steps to follow:
 	* Added addslashes() function for smcf_messages JavaScript object
 	* Added stripslashes() function for the email message
 	* Removed 70 character limit for wordwrap() function - defaults to 75
+	* Added wp_page_menu filter to dynamically add smcf-link class to a contact menu link

@@ -52,11 +52,11 @@ class SimpleModalContactForm {
 
 	function submenu() {
 		if (function_exists("add_submenu_page")) {
-			add_submenu_page("options-general.php", "SimpleModal Contact Form", "SimpleModal Contact Form", "manage_options", "smcf-config", array($this, "configPage"));
+			add_submenu_page("options-general.php", "SimpleModal Contact Form", "SimpleModal Contact Form", "manage_options", "smcf-config", array($this, "config_page"));
 		}
 	}
 
-	function configPage() {
+	function config_page() {
 		$message = null;
 
 		if ($_POST["action"] && $_POST["action"] == "update") {
@@ -106,7 +106,7 @@ class SimpleModalContactForm {
 	<tr valign="top">
 		<th scope="row"><?php _e("Contact Link Title:", "smcf"); ?></th>
 		<td><input type="text" id="smcf_link_title" name="smcf_link_title" value="<?php echo $smcf_link_title; ?>" size="40" class="code"/>
-		<p><?php _e("The title for the contact link to your contact form page.", "smcf"); ?></p></td>
+		<p><?php _e("The title for the contact link to your contact form page. If you are using wp_page_menu() to build menus dynamically, SMCF will look for a link with this title.", "smcf"); ?></p></td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php _e("Form Title:", "smcf"); ?></th>
@@ -169,8 +169,8 @@ class SimpleModalContactForm {
 	function footer() {
 		// add javascript files
 		if (function_exists("wp_enqueue_script")) {
-			wp_enqueue_script("simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery", "1.2.1");
-			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "simplemodal"), "1.2");
+			wp_enqueue_script("simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery");
+			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "simplemodal"));
 			wp_print_scripts();
 		}
 
@@ -187,10 +187,14 @@ class SimpleModalContactForm {
 			thankyou: '" . addslashes(__("Thank You!", "smcf")) . "',
 			error: '" . addslashes(__("Uh oh...", "smcf")) . "',
 			goodbye: '" . addslashes(__("Goodbye...", "smcf")) . "',
-			namerequired: '" . addslashes(__("Name is required.", "smcf")) . "',
-			emailrequired: '" . addslashes(__("Email is required.", "smcf")) . "',
+			name: '" . addslashes(__("Name", "smcf")) . "',
+			email: '" . addslashes(__("Email", "smcf")) . "',
 			emailinvalid: '" . addslashes(__("Email is invalid.", "smcf")) . "',
-			messagerequired: '" . addslashes(__("Message is required.", "smcf")) . "'
+			subject: '" . addslashes(__("Subject", "smcf")) . "',
+			message: '" . addslashes(__("Message", "smcf")) . "',
+			is: '" . addslashes(__("is", "smcf")) . "',
+			are: '" . addslashes(__("are", "smcf")) . "',
+			required: '" . addslashes(__("required.", "smcf")) . "'
 		}
 	</script>";
 
@@ -209,7 +213,7 @@ class SimpleModalContactForm {
 			<input type='text' id='smcf-email' class='smcf-input' name='email' value='' tabindex='1002' />";
 
 		if (get_option("smcf_form_subject") == 1) {
-			$output .= "<label for='smcf-subject'>" . __("Subject", "smcf") . ":</label>
+			$output .= "<label for='smcf-subject'>*" . __("Subject", "smcf") . ":</label>
 			<input type='text' id='smcf-subject' class='smcf-input' name='subject' value='' tabindex='1003' />";
 		}
 
@@ -235,6 +239,13 @@ class SimpleModalContactForm {
 		echo $output;
 	}
 
+	function page_menu($menu) {
+		$title = get_option("smcf_link_title");
+		$find = '/title="'.$title.'"/';
+		$replace = 'title="'.$title.'" class="smcf-link"';
+		return preg_replace($find, $replace, $menu);
+	}
+
 	function token() {
 		$admin_email = get_option("admin_email");
 		return md5("smcf-" . $admin_email . date("WY"));
@@ -252,6 +263,9 @@ add_action("admin_menu", array($smcf, "submenu"));
 // Include SimpleModal Contact Form code to a page
 add_action("wp_head", array($smcf, "head"));
 add_action("wp_footer", array($smcf, "footer"), 10);
+
+// Look for a contact link in the page menus
+add_filter('wp_page_menu', array($smcf, "page_menu"));
 
 /*
  * Public function to create a link for the contact form
