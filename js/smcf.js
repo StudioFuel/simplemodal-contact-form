@@ -184,8 +184,10 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 			}
 
 			if (req.length > 0) {
-				contact.message += req.join(', ');
-				contact.message += ' ' + (req.length > 1 ? smcf_messages.are : smcf_messages.is);
+				var fields = req.join(', ');
+				contact.message += req.length > 1 ?
+					fields.replace(/(.*),/,'$1 ' + smcf_messages.and) + ' ' + smcf_messages.are :
+					fields + ' ' + smcf_messages.is;
 				contact.message += ' ' + smcf_messages.required;
 			}
 

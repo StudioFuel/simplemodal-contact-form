@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
-Tags: contact, contact form, modal, ajax, plugin, jquery, javascript
+Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
-Tested up to: 2.7
+Tested up to: 2.7.x
 Stable tag: 1.2.1
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
@@ -42,7 +42,7 @@ b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for exam
 		<?php smcf(); ?>
 	<?php endif; ?>
 
-c) If your contact link is generated using `wp_page_menu()`, you can enter the contact link title in the SMCF Options under "Contact Link Title" and SMCF will automatically attempt to add the smcf-link class for that link.
+c) If your contact link is generated using `wp_page_menu()` or `wp_list_pages()`, you can enter the contact link title in the SMCF Options under "Contact Link Title" and SMCF will automatically attempt to add the smcf-link class for that link.
 
 == Frequently Asked Questions ==
 
@@ -133,7 +133,8 @@ Here are some troubleshooting steps to follow:
 	* Added function_exists() check for wp_print_styles
 * Version 1.2.2
 	* Upgraded SimpleModal to 1.2.3
-	* Added addslashes() function for smcf_messages JavaScript object
+	* Added addslashes() function for smcf_messages JavaScript object to prevent localization issues
 	* Added stripslashes() function for the email message
 	* Removed 70 character limit for wordwrap() function - defaults to 75
-	* Added wp_page_menu filter to dynamically add smcf-link class to a contact menu link
+	* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
+	* Changed format of validation messages

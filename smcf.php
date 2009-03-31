@@ -9,7 +9,7 @@ Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
 
-/*	Copyright 2008 Eric Martin (eric@ericmmartin.com)
+/*	Copyright 2009 Eric Martin (eric@ericmmartin.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -106,7 +106,7 @@ class SimpleModalContactForm {
 	<tr valign="top">
 		<th scope="row"><?php _e("Contact Link Title:", "smcf"); ?></th>
 		<td><input type="text" id="smcf_link_title" name="smcf_link_title" value="<?php echo $smcf_link_title; ?>" size="40" class="code"/>
-		<p><?php _e("The title for the contact link to your contact form page. If you are using wp_page_menu() to build menus dynamically, SMCF will look for a link with this title.", "smcf"); ?></p></td>
+		<p><?php _e("The title for the contact link to your contact form page. If you are using wp_page_menu() or wp_list_pages() to build menus dynamically, SMCF will look for a link with this title.", "smcf"); ?></p></td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php _e("Form Title:", "smcf"); ?></th>
@@ -192,6 +192,7 @@ class SimpleModalContactForm {
 			emailinvalid: '" . addslashes(__("Email is invalid.", "smcf")) . "',
 			subject: '" . addslashes(__("Subject", "smcf")) . "',
 			message: '" . addslashes(__("Message", "smcf")) . "',
+			and: '" . addslashes(__("and", "smcf")) . "',
 			is: '" . addslashes(__("is", "smcf")) . "',
 			are: '" . addslashes(__("are", "smcf")) . "',
 			required: '" . addslashes(__("required.", "smcf")) . "'
@@ -239,11 +240,11 @@ class SimpleModalContactForm {
 		echo $output;
 	}
 
-	function page_menu($menu) {
+	function page_menu_list($page) {
 		$title = get_option("smcf_link_title");
 		$find = '/title="'.$title.'"/';
 		$replace = 'title="'.$title.'" class="smcf-link"';
-		return preg_replace($find, $replace, $menu);
+		return preg_replace($find, $replace, $page);
 	}
 
 	function token() {
@@ -264,8 +265,9 @@ add_action("admin_menu", array($smcf, "submenu"));
 add_action("wp_head", array($smcf, "head"));
 add_action("wp_footer", array($smcf, "footer"), 10);
 
-// Look for a contact link in the page menus
-add_filter('wp_page_menu', array($smcf, "page_menu"));
+// Look for a contact link in the page menus/list
+add_filter('wp_page_menu', array($smcf, "page_menu_list"));
+add_filter('wp_list_pages', array($smcf, "page_menu_list"));
 
 /*
  * Public function to create a link for the contact form
