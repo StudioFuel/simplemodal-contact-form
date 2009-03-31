@@ -4,7 +4,7 @@ Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
 Tested up to: 2.7.x
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -137,4 +137,4 @@ Here are some troubleshooting steps to follow:
 	* Added stripslashes() function for the email message
 	* Removed 70 character limit for wordwrap() function - defaults to 75
 	* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
-	* Changed format of validation messages
+	* Changed format of validation messages - requires translation updates.
