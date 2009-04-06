@@ -175,7 +175,8 @@ if (typeof jQuery !== "undefined" && typeof jQuery.modal !== "undefined") {
 				}
 			}
 
-			if (!jQuery('#smcf-container #smcf-subject').val()) {
+			var subj = jQuery('#smcf-container #smcf-subject');
+			if (subj.length > 0 && !subj.val()) {
 				req.push(smcf_messages.subject);
 			}
 
