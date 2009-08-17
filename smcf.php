@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.2.3
+Version: 1.2.4
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -31,7 +31,7 @@ define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
 
 class SimpleModalContactForm {
 
-	var $version = "1.2.3";
+	var $version = "1.2.4";
 
 	function init() {
 		if (function_exists("load_plugin_textdomain")) {
@@ -39,14 +39,16 @@ class SimpleModalContactForm {
 		}
 
 		// add javascript files
-		if (function_exists("wp_enqueue_script")) {
+		if (function_exists("wp_enqueue_script") && !is_admin()) {
 			// load the jQuery version that comes with WordPress
 			wp_enqueue_script("jquery");
+			wp_enqueue_script("jquery-simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery", "1.3", true);
+			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "jquery-simplemodal"), $this->version, true);
 		}
 
 		// add styling
 		if (function_exists("wp_enqueue_style")) {
-			wp_enqueue_style("smcf", get_option("siteurl") . SMCF_DIR . "/css/smcf.css", null, $this->version, "screen");
+			wp_enqueue_style("smcf", get_option("siteurl") . SMCF_DIR . "/css/smcf.css", false, $this->version, "screen");
 		}
 	}
 
@@ -167,13 +169,6 @@ class SimpleModalContactForm {
 	}
 
 	function footer() {
-		// add javascript files
-		if (function_exists("wp_enqueue_script")) {
-			wp_enqueue_script("simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery");
-			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "simplemodal"));
-			wp_print_scripts();
-		}
-
 		$title = get_option("smcf_form_title");
 		$title = empty($title) ? __("Send me a message", "smcf") : $title;
 
@@ -190,7 +185,6 @@ class SimpleModalContactForm {
 			name: '" . addslashes(__("Name", "smcf")) . "',
 			email: '" . addslashes(__("Email", "smcf")) . "',
 			emailinvalid: '" . addslashes(__("Email is invalid.", "smcf")) . "',
-			subject: '" . addslashes(__("Subject", "smcf")) . "',
 			message: '" . addslashes(__("Message", "smcf")) . "',
 			and: '" . addslashes(__("and", "smcf")) . "',
 			is: '" . addslashes(__("is", "smcf")) . "',
@@ -214,7 +208,7 @@ class SimpleModalContactForm {
 			<input type='text' id='smcf-email' class='smcf-input' name='email' value='' tabindex='1002' />";
 
 		if (get_option("smcf_form_subject") == 1) {
-			$output .= "<label for='smcf-subject'>*" . __("Subject", "smcf") . ":</label>
+			$output .= "<label for='smcf-subject'>" . __("Subject", "smcf") . ":</label>
 			<input type='text' id='smcf-subject' class='smcf-input' name='subject' value='' tabindex='1003' />";
 		}
 
@@ -255,7 +249,7 @@ class SimpleModalContactForm {
 
 $smcf = new SimpleModalContactForm();
 
-// Initialize textdomain - L10n
+// Initialize textdomain - L10n and load scripts
 add_action("init", array($smcf, "init"));
 
 // Place a 'SimpleModal Contact Form' sub menu item on the Options page
