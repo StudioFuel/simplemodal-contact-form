@@ -27,5 +27,5 @@
 #smcf-container a.modalCloseX,
 #smcf-container a.modalCloseX:link,
 #smcf-container a.modalCloseX:active,
-#smcf-container a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; right:8px; color:#999;}
+#smcf-container a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; right:8px; color:#999;}
 #smcf-container a.modalCloseX:hover {color:#9bb3b3;}

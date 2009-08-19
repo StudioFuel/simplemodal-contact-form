@@ -195,7 +195,6 @@ class SimpleModalContactForm {
 
 		// create the contact form HTML
 		$output .= "<div id='smcf-content' style='display:none'>
-	<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
 	<div class='smcf-top'></div>
 	<div class='smcf-content'>
 		<h1 class='smcf-title'>" . $title . "</h1>
