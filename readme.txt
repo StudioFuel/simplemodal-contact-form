@@ -4,7 +4,7 @@ Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
 Tested up to: 2.8.x
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -15,6 +15,19 @@ SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form.
 It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
 SMCF has options to include certain contact form elements, like a Subject field and "Send me a copy" option for the sender.
+
+*Translations*
+
+* [French](http://smcf.googlecode.com/files/smcf-fr_fr.zip) - [E Neuville, ICS-INFORMATIQUE](http://www.ics-informatique.com)
+* [German](http://smcf.googlecode.com/files/smcf-de_de.zip) - Mika
+* [Italian](http://smcf.googlecode.com/files/smcf-it_it.zip) - [Gianni Diurno](http://gidibao.net/)
+* [Polish](http://smcf.googlecode.com/files/smcf-pl_pl.zip) - [Tomek Nowak](http://rezist.com/)
+* [Portuguese](http://smcf.googlecode.com/files/smcf-pt_br.zip) - [Vitor Borges](http://blogdovborges.net)
+* [Russian](http://smcf.googlecode.com/files/smcf-ru_ru.zip) - [Alexey Kot](http://www.waytorise.com)
+* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-1.zip) (a) - [SanalDuva](http://sanalduvar.com/)
+* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-2.zip) (b) - Ugur Eskici
+
+Thank you to all who have contributed these translations.
 
 == Installation ==
 
@@ -88,7 +101,7 @@ Here are some troubleshooting steps to follow:
 3. The contact form in the process of sending.
 4. A successful message.
 
-== Arbitrary section ==
+== Changelog ==
 
 * Version 1.0
 	* Initial release
@@ -141,4 +154,8 @@ Here are some troubleshooting steps to follow:
 * Version 1.2.3
 	* Fixed bug in validation code. Forms without a subject were getting "subject required" errors.
 * Version 1.2.4
-	* 
+	* Upgraded to SimpleModal 1.3
+	* Fixed the bug that was supposed to be fixed in 1.2.3 ;)
+	* Moved the JavaScript loading into the WordPress init() function
+	* Optimized smcf.js variables to reduce file-size
+	* Moved close (X) HTML from smcf.php to smcf.js (the SimpleModal closeHTML option)
