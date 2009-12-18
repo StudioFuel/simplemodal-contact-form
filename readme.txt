@@ -3,7 +3,7 @@ Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
-Tested up to: 2.8.x
+Tested up to: 2.9
 Stable tag: 1.2.4
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
@@ -94,6 +94,17 @@ Here are some troubleshooting steps to follow:
 * Make sure no other plugins are loading an older version of jQuery (SMCF requires jQuery 1.2 or greater)
 * Make sure PHP's `mail()` is installed and working. (You can also open `smcf_data.php` and remove the @ from `@mail`. That will echo out any errors that it throws while trying to send mail.)
 
+= Can I remove the "Powered by SimpleModal Contact Form" link?  =
+
+Yup. See below.
+
+= How can I remove the "Powered by SimpleModal Contact Form" link?  =
+
+You can edit the `smcf.php` file, or more simply, just add the following to your `style.css` file:
+
+	#smcf-container div.smcf-bottom a {display:none;}
+
+
 == Screenshots ==
 
 1. A contact form with the Subject and "Send me a copy" options enabled.
@@ -103,10 +114,52 @@ Here are some troubleshooting steps to follow:
 
 == Changelog ==
 
-* Version 1.0
-	* Initial release
-* Version 1.0.1
-	* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
+* Version 1.2.5
+	* Upgraded to SimpleModal 1.3.3
+	* Fixed minor PHP error
+	* Updated compatibility information
+* Version 1.2.4
+	* Upgraded to SimpleModal 1.3
+	* Fixed the bug that was supposed to be fixed in 1.2.3 ;)
+	* Moved the JavaScript loading into the WordPress init() function
+	* Optimized smcf.js variables to reduce file-size
+	* Moved close (X) HTML from smcf.php to smcf.js (the SimpleModal closeHTML option)
+* Version 1.2.3
+	* Fixed bug in validation code. Forms without a subject were getting "subject required" errors.
+* Version 1.2.2
+	* Upgraded SimpleModal to 1.2.3
+	* Added addslashes() function for smcf_messages JavaScript object to prevent localization issues
+	* Added stripslashes() function for the email message
+	* Removed 70 character limit for wordwrap() function - defaults to 75
+	* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
+	* Changed format of validation messages - requires translation updates.
+* Version 1.2.1
+	* Upgraded SimpleModal to 1.2.2
+	* Added function_exists() check for wp_print_styles
+* Version 1.2
+	* Upgraded SimpleModal to 1.2.1
+	* Removed IE specific CSS and PNG files
+	* Added localization (lang/smcf.pot)
+	* Made contact form wider and increased height of textarea
+	* Removed included jQuery - changed to using version included with WordPress
+	* Switched style and script loading to use wp_enqueue_style and wp_enqueue_script respectively
+	* Removed options to include jQuery and SimpleModal 
+* Version 1.1.4
+	* Fixed broken Subject encoding
+* Version 1.1.3
+	* Changed smcf_javascript.php to smcf.js - removed php functions
+	* Changed form action URL to point to smcf_data.php
+	* Changed verification method to prevent false failures
+	* Changed failure messages to indicate type of failure (verification/server failure)
+	* Modified CSS
+* Version 1.1.2
+	* Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
+* Version 1.1.1
+	* Added UTF-8 support
+	* Modified CSS
+	* Fixed URL to smcf_data.php in smcf_javascript.php
+	* Changed Ajax function in smcf_javascript.php
+	* Added back recognition for .smcf_link for previous versions
 * Version 1.1
 	* Fixed image pre-loading to actually pre-load ;)
 	* Added new effects on form open and close
@@ -117,45 +170,7 @@ Here are some troubleshooting steps to follow:
 	* Added WordPress translation ability on text elements (__() and _e() functions)
 	* Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
 	* Moved SimpleModal and SMCF JavaScript file loading to the footer
-* Version 1.1.1
-	* Added UTF-8 support
-	* Modified CSS
-	* Fixed URL to smcf_data.php in smcf_javascript.php
-	* Changed Ajax function in smcf_javascript.php
-	* Added back recognition for .smcf_link for previous versions
-* Version 1.1.2
-	* Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
-* Version 1.1.3
-	* Changed smcf_javascript.php to smcf.js - removed php functions
-	* Changed form action URL to point to smcf_data.php
-	* Changed verification method to prevent false failures
-	* Changed failure messages to indicate type of failure (verification/server failure)
-	* Modified CSS
-* Version 1.1.4
-	* Fixed broken Subject encoding
-* Version 1.2
-	* Upgraded SimpleModal to 1.2.1
-	* Removed IE specific CSS and PNG files
-	* Added localization (lang/smcf.pot)
-	* Made contact form wider and increased height of textarea
-	* Removed included jQuery - changed to using version included with WordPress
-	* Switched style and script loading to use wp_enqueue_style and wp_enqueue_script respectively
-	* Removed options to include jQuery and SimpleModal 
-* Version 1.2.1
-	* Upgraded SimpleModal to 1.2.2
-	* Added function_exists() check for wp_print_styles
-* Version 1.2.2
-	* Upgraded SimpleModal to 1.2.3
-	* Added addslashes() function for smcf_messages JavaScript object to prevent localization issues
-	* Added stripslashes() function for the email message
-	* Removed 70 character limit for wordwrap() function - defaults to 75
-	* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
-	* Changed format of validation messages - requires translation updates.
-* Version 1.2.3
-	* Fixed bug in validation code. Forms without a subject were getting "subject required" errors.
-* Version 1.2.4
-	* Upgraded to SimpleModal 1.3
-	* Fixed the bug that was supposed to be fixed in 1.2.3 ;)
-	* Moved the JavaScript loading into the WordPress init() function
-	* Optimized smcf.js variables to reduce file-size
-	* Moved close (X) HTML from smcf.php to smcf.js (the SimpleModal closeHTML option)
+* Version 1.0.1
+	* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
+* Version 1.0
+	* Initial release
