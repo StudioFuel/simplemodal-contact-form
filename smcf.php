@@ -26,8 +26,8 @@ Author URI: http://www.ericmmartin.com
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-$dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
-define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
+$smcf_dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
+define ("SMCF_DIR", "/wp-content/plugins/" . $smcf_dir);
 
 class SimpleModalContactForm {
 

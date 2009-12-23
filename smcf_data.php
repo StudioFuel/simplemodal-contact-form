@@ -2,8 +2,8 @@
 
 require_once("../../../wp-config.php");
 
-$dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
-define ("SMCF_DIR", "/wp-content/plugins/" . $dir);
+$smcf_dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
+define ("SMCF_DIR", "/wp-content/plugins/" . $smcf_dir);
 
 // process
 $action = isset($_POST["action"]) ? $_POST["action"] : "";
