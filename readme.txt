@@ -18,13 +18,13 @@ SMCF has options to include certain contact form elements, like a Subject field 
 
 *Translations*
 
-* [French](http://smcf.googlecode.com/files/smcf-fr_fr.zip) - [E Neuville, ICS-INFORMATIQUE](http://www.ics-informatique.com)
+* [French](http://smcf.googlecode.com/files/smcf-fr_fr.zip) - E Neuville, ICS-INFORMATIQUE
 * [German](http://smcf.googlecode.com/files/smcf-de_de.zip) - Mika
-* [Italian](http://smcf.googlecode.com/files/smcf-it_it.zip) - [Gianni Diurno](http://gidibao.net/)
-* [Polish](http://smcf.googlecode.com/files/smcf-pl_pl.zip) - [Tomek Nowak](http://rezist.com/)
-* [Portuguese](http://smcf.googlecode.com/files/smcf-pt_br.zip) - [Vitor Borges](http://blogdovborges.net)
-* [Russian](http://smcf.googlecode.com/files/smcf-ru_ru.zip) - [Alexey Kot](http://www.waytorise.com)
-* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-1.zip) (a) - [SanalDuva](http://sanalduvar.com/)
+* [Italian](http://smcf.googlecode.com/files/smcf-it_it.zip) - Gianni Diurno
+* [Polish](http://smcf.googlecode.com/files/smcf-pl_pl.zip) - Tomek Nowak
+* [Portuguese](http://smcf.googlecode.com/files/smcf-pt_br.zip) - Vitor Borges
+* [Russian](http://smcf.googlecode.com/files/smcf-ru_ru.zip) - Alexey Kot
+* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-1.zip) (a) - SanalDuva
 * [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-2.zip) (b) - Ugur Eskici
 
 Thank you to all who have contributed these translations.
