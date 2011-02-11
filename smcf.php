@@ -4,12 +4,12 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.2.5
+Version: 1.2.6
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
 
-/*	Copyright 2009 Eric Martin (eric@ericmmartin.com)
+/*	Copyright 2011 Eric Martin (eric@ericmmartin.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -27,27 +27,21 @@ Author URI: http://www.ericmmartin.com
 */
 
 $smcf_dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
-define ("SMCF_DIR", "/wp-content/plugins/" . $smcf_dir);
+define("SMCF_DIR", "/wp-content/plugins/" . $smcf_dir);
 
 class SimpleModalContactForm {
 
-	var $version = "1.2.5";
+	var $version = "1.2.6";
 
 	function init() {
-		if (function_exists("load_plugin_textdomain")) {
-			load_plugin_textdomain("smcf", SMCF_DIR . "/lang/");
-		}
+		load_plugin_textdomain("smcf", false, SMCF_DIR . "/lang/");
+		
+		if (!is_admin()) {
+			// add javascript files
+			wp_enqueue_script("jquery-simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", array("jquery"), "1.4.1", true);
+			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery-simplemodal"), $this->version, true);
 
-		// add javascript files
-		if (function_exists("wp_enqueue_script") && !is_admin()) {
-			// load the jQuery version that comes with WordPress
-			wp_enqueue_script("jquery");
-			wp_enqueue_script("jquery-simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", "jquery", "1.3", true);
-			wp_enqueue_script("smcf", get_option("siteurl") . SMCF_DIR . "/js/smcf.js", array("jquery", "jquery-simplemodal"), $this->version, true);
-		}
-
-		// add styling
-		if (function_exists("wp_enqueue_style")) {
+			// add styling
 			wp_enqueue_style("smcf", get_option("siteurl") . SMCF_DIR . "/css/smcf.css", false, $this->version, "screen");
 		}
 	}
@@ -261,6 +255,7 @@ add_action("wp_footer", array($smcf, "footer"), 10);
 // Look for a contact link in the page menus/list
 add_filter('wp_page_menu', array($smcf, "page_menu_list"));
 add_filter('wp_list_pages', array($smcf, "page_menu_list"));
+add_filter('wp_nav_menu_items', array($smcf, "page_menu_list"));
 
 /*
  * Public function to create a link for the contact form
