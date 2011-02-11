@@ -3,8 +3,8 @@ Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
-Tested up to: 2.9
-Stable tag: 1.2.5
+Tested up to: 3.0.5
+Stable tag: 1.2.6
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -18,14 +18,8 @@ SMCF has options to include certain contact form elements, like a Subject field 
 
 *Translations*
 
-* [French](http://smcf.googlecode.com/files/smcf-fr_fr.zip) - E Neuville, ICS-INFORMATIQUE
-* [German](http://smcf.googlecode.com/files/smcf-de_de.zip) - Mika
-* [Italian](http://smcf.googlecode.com/files/smcf-it_it.zip) - Gianni Diurno
-* [Polish](http://smcf.googlecode.com/files/smcf-pl_pl.zip) - Tomek Nowak
-* [Portuguese](http://smcf.googlecode.com/files/smcf-pt_br.zip) - Vitor Borges
-* [Russian](http://smcf.googlecode.com/files/smcf-ru_ru.zip) - Alexey Kot
-* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-1.zip) (a) - SanalDuva
-* [Turkish](http://smcf.googlecode.com/files/smcf-tr_tr-2.zip) (b) - Ugur Eskici
+http://plugins.svn.wordpress.org/simplemodal-contact-form-smcf/I18n (check the version number for the correct file)
+
 
 Thank you to all who have contributed these translations.
 
@@ -34,7 +28,7 @@ Thank you to all who have contributed these translations.
 *Requirements:*
 
 * PHP `mail()`
-* jQuery 1.2 or greater
+* jQuery 1.2.4 or greater
 
 *Steps:*
 
@@ -43,9 +37,9 @@ Thank you to all who have contributed these translations.
 3. Set the desired options (Admin Dashboard >  Settings > SimpleModal Contact Form)
 4. Enable SMCF on your site! SMCF works by looking for links (HTML A elements) with a class of "smcf-link". See below:
 
-You have 3 options:
+You have 4 options:
 
-a) Add the "smcf-link" to your existing contact link:
+a) Add the "smcf-link" to your existing (or new) contact link:
 
 	<a href="/contact" class="smcf-link">Contact</a>
 	
@@ -56,6 +50,13 @@ b) Use the "smcf()" function in one of your theme files (`sidebar.php`, for exam
 	<?php endif; ?>
 
 c) If your contact link is generated using `wp_page_menu()` or `wp_list_pages()`, you can enter the contact link title in the SMCF Options under "Contact Link Title" and SMCF will automatically attempt to add the smcf-link class for that link.
+
+d) If you are using the WordPress Menus (Admin > Appearance > Menus) feature, you'll need to perform the following steps to manually add the necessary CSS class to the Menu item that you want to trigger SimpleModal Contact Form:
+
+1. On the Menus screen, click the 'Screen Options' link on the top right. In the "drop down", select 'CSS Classes' under 'Show advanced menu properties'.
+2. Now, for the link you want to use to trigger SimpleModal Contact Form, enter `smcf-link` under 'CSS Classes (optional)'.
+3. That Menu item should trigger SimpleModal Contact Form when clicked!
+
 
 == Frequently Asked Questions ==
 
@@ -91,7 +92,7 @@ Here are some troubleshooting steps to follow:
 * Use Firefox and Firebug or if you must use IE, turn on JavaScript debugging and install the Developer Toolbar (search Google if you are unsure of how to do any of these)
 * Make sure the footer.php file in your theme, contains `<?php wp_footer(); ?>`
 * Make sure all of the JavaScript files are loaded (jquery, jquery.simplemodal and smcf)
-* Make sure no other plugins are loading an older version of jQuery (SMCF requires jQuery 1.2 or greater)
+* Make sure no other plugins are loading an older version of jQuery (SMCF requires jQuery 1.2.4 or greater)
 * Make sure PHP's `mail()` is installed and working. (You can also open `smcf_data.php` and remove the @ from `@mail`. That will echo out any errors that it throws while trying to send mail.)
 
 = Can I remove the "Powered by SimpleModal Contact Form" link?  =
@@ -112,66 +113,90 @@ You can edit the `smcf.php` file, or more simply, just add the following to your
 3. The contact form in the process of sending.
 4. A successful message.
 
+
+== Upgrade Notice ==
+
+N/A
+
 == Changelog ==
 
-* Version 1.2.5
-	* Upgraded to SimpleModal 1.3.3
-	* Fixed minor PHP error
-	* Updated compatibility information
-	* Fixed global variable name conflict
-* Version 1.2.4
-	* Upgraded to SimpleModal 1.3
-	* Fixed the bug that was supposed to be fixed in 1.2.3 ;)
-	* Moved the JavaScript loading into the WordPress init() function
-	* Optimized smcf.js variables to reduce file-size
-	* Moved close (X) HTML from smcf.php to smcf.js (the SimpleModal closeHTML option)
-* Version 1.2.3
-	* Fixed bug in validation code. Forms without a subject were getting "subject required" errors.
-* Version 1.2.2
-	* Upgraded SimpleModal to 1.2.3
-	* Added addslashes() function for smcf_messages JavaScript object to prevent localization issues
-	* Added stripslashes() function for the email message
-	* Removed 70 character limit for wordwrap() function - defaults to 75
-	* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
-	* Changed format of validation messages - requires translation updates.
-* Version 1.2.1
-	* Upgraded SimpleModal to 1.2.2
-	* Added function_exists() check for wp_print_styles
-* Version 1.2
-	* Upgraded SimpleModal to 1.2.1
-	* Removed IE specific CSS and PNG files
-	* Added localization (lang/smcf.pot)
-	* Made contact form wider and increased height of textarea
-	* Removed included jQuery - changed to using version included with WordPress
-	* Switched style and script loading to use wp_enqueue_style and wp_enqueue_script respectively
-	* Removed options to include jQuery and SimpleModal 
-* Version 1.1.4
-	* Fixed broken Subject encoding
-* Version 1.1.3
-	* Changed smcf_javascript.php to smcf.js - removed php functions
-	* Changed form action URL to point to smcf_data.php
-	* Changed verification method to prevent false failures
-	* Changed failure messages to indicate type of failure (verification/server failure)
-	* Modified CSS
-* Version 1.1.2
-	* Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
-* Version 1.1.1
-	* Added UTF-8 support
-	* Modified CSS
-	* Fixed URL to smcf_data.php in smcf_javascript.php
-	* Changed Ajax function in smcf_javascript.php
-	* Added back recognition for .smcf_link for previous versions
-* Version 1.1
-	* Fixed image pre-loading to actually pre-load ;)
-	* Added new effects on form open and close
-	* Added a security feature
-	* Added optional subject and cc sender form elements
-	* Added common classes to form elements
-	* Renamed all classes and ID's to prevent collisions
-	* Added WordPress translation ability on text elements (__() and _e() functions)
-	* Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
-	* Moved SimpleModal and SMCF JavaScript file loading to the footer
-* Version 1.0.1
-	* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
-* Version 1.0
-	* Initial release
+=1.2.6=
+* Added wp_nav_menu_items filter to dynamically add smcf-link class to a menu links
+* Upgraded to SimpleModal 1.4.1
+* Translations can now be found at http://plugins.svn.wordpress.org/simplemodal-contact-form-smcf/I18n
+* Cleaned up some un-necessary code
+* Added instructions for how to use SMCF with WordPress Menus
+* Added uninstall.php file to remove options when SMCF is uninstalled
+
+=1.2.5=
+* Upgraded to SimpleModal 1.3.3
+* Fixed minor PHP error
+* Updated compatibility information
+* Fixed global variable name conflict
+
+=1.2.4=
+* Upgraded to SimpleModal 1.3
+* Fixed the bug that was supposed to be fixed in 1.2.3 ;)
+* Moved the JavaScript loading into the WordPress init() function
+* Optimized smcf.js variables to reduce file-size
+* Moved close (X) HTML from smcf.php to smcf.js (the SimpleModal closeHTML option)
+
+=1.2.3=
+* Fixed bug in validation code. Forms without a subject were getting "subject required" errors.
+
+=1.2.2=
+* Upgraded SimpleModal to 1.2.3
+* Added addslashes() function for smcf_messages JavaScript object to prevent localization issues
+* Added stripslashes() function for the email message
+* Removed 70 character limit for wordwrap() function - defaults to 75
+* Added wp_page_menu and wp_list_pages filter to dynamically add smcf-link class to a contact menu link
+* Changed format of validation messages - requires translation updates.
+
+=1.2.1=
+* Upgraded SimpleModal to 1.2.2
+* Added function_exists() check for wp_print_styles
+
+=1.2=
+* Upgraded SimpleModal to 1.2.1
+* Removed IE specific CSS and PNG files
+* Added localization (lang/smcf.pot)
+* Made contact form wider and increased height of textarea
+* Removed included jQuery - changed to using version included with WordPress
+* Switched style and script loading to use wp_enqueue_style and wp_enqueue_script respectively
+* Removed options to include jQuery and SimpleModal 
+
+=1.1.4=
+* Fixed broken Subject encoding
+
+=1.1.3=
+* Changed smcf_javascript.php to smcf.js - removed php functions
+* Changed form action URL to point to smcf_data.php
+* Changed verification method to prevent false failures
+* Changed failure messages to indicate type of failure (verification/server failure)
+* Modified CSS
+=1.1.2=
+* Fixed parse_url function in smcf_javascript.php to support PHP < 5.1.2
+
+=1.1.1=
+* Added UTF-8 support
+* Modified CSS
+* Fixed URL to smcf_data.php in smcf_javascript.php
+* Changed Ajax function in smcf_javascript.php
+* Added back recognition for .smcf_link for previous versions
+
+=1.1=
+* Fixed image pre-loading to actually pre-load ;)
+* Added new effects on form open and close
+* Added a security feature
+* Added optional subject and cc sender form elements
+* Added common classes to form elements
+* Renamed all classes and ID's to prevent collisions
+* Added WordPress translation ability on text elements (__() and _e() functions)
+* Upgraded to SimpleModal v1.1.1 and jQuery 1.2.3
+* Moved SimpleModal and SMCF JavaScript file loading to the footer
+
+=1.0.1=
+* Bug fix - removed the hard-coded plugins/smcf path. It is now dynamically determined.
+
+=1.0=
+* Initial release
