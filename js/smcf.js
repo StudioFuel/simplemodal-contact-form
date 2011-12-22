@@ -9,7 +9,8 @@ jQuery(function ($) {
 			containerId: 'smcf-container',
 			onOpen: contact.open,
 			onShow: contact.show,
-			onClose: contact.close
+			onClose: contact.close,
+			zIndex: 10000
 		});
 	});
 
@@ -27,7 +28,7 @@ jQuery(function ($) {
 		message: null,
 		open: function (d) {
 			// dynamically determine height
-			var h = 280;
+			var h = 300;
 			if ($('#smcf-subject').length) {
 				h += 26;
 			}

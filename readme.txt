@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== SimpleModal Contact Form (SMCF) ===
 Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: contact, contact form, modal, ajax, plugin, jquery, javascript, mail, email
 Requires at least: ?
-Tested up to: 3.0.5
-Stable tag: 1.2.6
+Tested up to: 3.3
+Stable tag: 1.2.7
 
 SimpleModal Contact Form (SMCF) is an Ajax powered modal contact form. It utilizes the jQuery JavaScript library and the SimpleModal jQuery plugin.
 
@@ -119,6 +119,10 @@ You can edit the `smcf.php` file, or more simply, just add the following to your
 N/A
 
 == Changelog ==
+
+=1.2.7=
+* Updated parsing to support WordPress 3.3 changes
+* Updated z-index to support the Twenty Eleven theme
 
 =1.2.6=
 * Added wp_nav_menu_items filter to dynamically add smcf-link class to a menu links

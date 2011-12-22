@@ -4,7 +4,7 @@
 Plugin Name: SimpleModal Contact Form (SMCF)
 Plugin URI: http://www.ericmmartin.com/projects/smcf/
 Description: A modal Ajax contact form built on the SimpleModal jQuery plugin. Once Activated, go to "Options" or "Settings" and select "SimpleModal Contact Form".
-Version: 1.2.6
+Version: 1.2.7
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -31,11 +31,11 @@ define("SMCF_DIR", "/wp-content/plugins/" . $smcf_dir);
 
 class SimpleModalContactForm {
 
-	var $version = "1.2.6";
+	var $version = "1.2.7";
 
 	function init() {
 		load_plugin_textdomain("smcf", false, SMCF_DIR . "/lang/");
-		
+
 		if (!is_admin()) {
 			// add javascript files
 			wp_enqueue_script("jquery-simplemodal", get_option("siteurl") . SMCF_DIR . "/js/jquery.simplemodal.js", array("jquery"), "1.4.1", true);
@@ -58,7 +58,7 @@ class SimpleModalContactForm {
 		if (isset($_POST["action"]) && $_POST["action"] == "update") {
 			// save options
 			$message = _e("Options saved.", "smcf");
-			update_option("smcf_link_url", $_POST["smcf_link_url"]); 
+			update_option("smcf_link_url", $_POST["smcf_link_url"]);
 			update_option("smcf_link_title", $_POST["smcf_link_title"]);
 			update_option("smcf_form_subject", $_POST["smcf_form_subject"]);
 			update_option("smcf_form_cc_sender", $_POST["smcf_form_cc_sender"]);
@@ -229,9 +229,13 @@ class SimpleModalContactForm {
 
 	function page_menu_list($page) {
 		$title = get_option("smcf_link_title");
-		$find = '/title="'.$title.'"/';
-		$replace = 'title="'.$title.'" class="smcf-link"';
-		return preg_replace($find, $replace, $page);
+		$needle = ">$title<";
+
+		if (strstr($page, ">$title<")) {
+			$page = preg_replace("/>$title</", " class='smcf-link'>$title<", $page);
+		}
+
+		return $page;
 	}
 
 	function token() {
