@@ -15,7 +15,7 @@ jQuery(function ($) {
 	});
 
 	// preload images
-	var img = ['cancel.png','form_bottom.gif','form_top.gif','loading.gif','send.png'];
+	var img = ['loading.gif'];
 	if ($('#smcf-content form').length > 0) {
 		var url = $('#smcf-content form').attr('action').replace(/smcf_data\.php/, 'img/');
 		$(img).each(function () {
@@ -43,13 +43,6 @@ jQuery(function ($) {
 				});
 			}
 
-			// add padding to the buttons in firefox/mozilla
-			if ($.browser.mozilla) {
-				$('#smcf-container .smcf-button').css({
-					'padding-bottom': '2px'
-				});
-			}
-
 			var title = $('#smcf-container .smcf-title').html();
 			$('#smcf-container .smcf-title').html(smcf_messages.loading);
 			d.overlay.fadeIn(200, function () {
@@ -66,19 +59,6 @@ jQuery(function ($) {
 									var cc = $('#smcf-container #smcf-cc');
 									cc.is(':checked') ? cc.attr('checked', '') : cc.attr('checked', 'checked');
 								});
-
-								// fix png's for IE 6
-								if ($.browser.msie && $.browser.version < 7) {
-									$('#smcf-container .smcf-button').each(function () {
-										if ($(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
-											var src = RegExp.$1;
-											$(this).css({
-												backgroundImage: 'none',
-												filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="crop")'
-											});
-										}
-									});
-								}
 							});
 						});
 					});
